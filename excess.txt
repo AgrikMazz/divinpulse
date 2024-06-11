@@ -1,0 +1,120 @@
+<FormField
+                        control={form.control}
+                        name="address"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel>Address</FormLabel>
+                                <FormControl>
+                                <Textarea placeholder="Enter your address" {...field} />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="postalcode"
+                        render={({ field }) => (
+                            <FormItem className="mb-4">
+                                <FormLabel>Postal Code</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="Enter your postal code" {...field} />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />
+                    <div className="flex flex-col">
+                        <FormField
+                            control={form.control}
+                            name="city"
+                            render={({ field }) => (
+                                <FormItem className="mb-4">
+                                    <FormLabel>City</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter your city" {...field} />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="country"
+                            render={({ field }) => (
+                                <FormItem className="mb-4">
+                                    <FormLabel>Country</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Enter your country" {...field} />
+                                    </FormControl>
+                                </FormItem>
+                            )}
+                        />
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    return (
+        <Modal
+            title="Add a song"
+            description="Upload an mp3 file"
+            isOpen={uploadModal.isOpen}
+            onChange={onChange}
+        >
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
+                <Input
+                    id="title"
+                    disabled={isLoading}
+                    {...register('title', {required: true})}
+                    placeholder="Song title"
+                />
+                <Input
+                    id="author"
+                    disabled={isLoading}
+                    {...register('author', {required: true})}
+                    placeholder="Song author"
+                />
+                <div>
+                    <div className="pb-1">Select a song file</div>
+                    <Input
+                        id="song"
+                        type="file"
+                        disabled={isLoading}
+                        accept=".mp3"
+                        {...register('song', {required: true})}
+                    />
+                </div>
+                <div>
+                    <div className="pb-1">Select a image</div>
+                    <Input
+                        id="image"
+                        type="file"
+                        disabled={isLoading}
+                        accept="image/*"
+                        {...register('image', {required: true})}
+                    />
+                </div>
+                <Button disabled={isLoading} type="submit">
+                    Create
+                </Button>
+            </form>
+        </Modal>
+    );
+}
