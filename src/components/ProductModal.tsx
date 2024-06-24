@@ -4,18 +4,18 @@ import uniqid from "uniqid";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useStoreModal from "../hooks/useStoreModal";
 import { useAuth } from "@clerk/nextjs";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Input } from "./ui/input";
+import useProductModal from "@/hooks/useProductModal";
 import getStoreId from "@/app/actions/getStoreId";
 
-const StoreModal = () => {
+const ProductModal = () => {
     const router = useRouter();
-    const { onClose, isOpen } = useStoreModal();
+    const { onClose, isOpen } = useProductModal();
     const { userId, sessionId } = useAuth();
     const [loading, setLoading] = useState(false);
     const supabase = createClientComponentClient();
@@ -26,8 +26,8 @@ const StoreModal = () => {
         reset
     } = useForm<FieldValues>({
         defaultValues: {
-            storename: "",
-            subheading: "",
+            productname: "",
+            price: "",
             about: "",
             image: null,
         }
@@ -50,8 +50,9 @@ const StoreModal = () => {
         try {
             setLoading(true);
             const uniqueId = uniqid();
-
-            const { data: imageData, error: imageError } = await supabase.storage.from('store-images').upload(`image-${userId}-${values.storename}-${uniqueId}`, values.image?.[0], {
+            const productId = uniqid();
+            const storeId = await getStoreId(String(userId));
+            const { data: imageData, error: imageError } = await supabase.storage.from('product-images').upload(`product-image-${userId}-${values.productname}-${uniqueId}`, values.image?.[0], {
                 cacheControl: '3600',
                 upsert: false
             });
@@ -61,11 +62,14 @@ const StoreModal = () => {
                 return;
             }
 
-            const {data: storeData, error: storeError} = await supabase.from('stores').insert([{ name: values.storename, userId: userId, label: values.subheading, about: values.about, imageUrl: imageData?.path}]).select('*')
+            const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: imageData?.path, price: values.price, id: `product-image-${userId}-${values.productname}-${productId}`, store_id: storeId  }]).select('*')
+            console.log(productData);
 
-            window.location.assign(`/store/${storeData?.[0].id}`);
-            console.log(values);
-            console.log(storeData);
+            if (productError) {
+                console.log(productError);
+                return;
+            }
+
         } catch (error) {
             console.log(error)
         } finally {
@@ -77,25 +81,25 @@ const StoreModal = () => {
         <Modal
             isOpen={isOpen}
             onChange={onChange}
-            title="Create your store"
-            description="Become a seller and start selling"
+            title="Create a Product"
+            description="Make a product listing"
         >
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="space-y-3 mb-4">
                         <div className="">
-                            <p className="ml-1 mb-1 font-semibold">Store Name</p>
-                            <Input placeholder="Enter your store name" {...register("storename", { required: true })} />
+                            <p className="ml-1 mb-1 font-semibold">Product Name</p>
+                            <Input placeholder="Enter product name" {...register("productname", { required: true })} />
                         </div>
                         <div>
-                            <p className="ml-1 mb-1 font-semibold">Store Label</p>
-                            <Input placeholder="Enter your store label" {...register("subheading", { required: true })} />
+                            <p className="ml-1 mb-1 font-semibold">Price</p>
+                            <Input type="number" placeholder="Enter product price" {...register("price", { required: true })} />
                         </div>
                         <div>
                             <p className="ml-1 mb-1 font-semibold">About</p>
-                            <Textarea placeholder="Enter your store description" {...register("about", { required: true })} />
+                            <Textarea placeholder="Enter product description" {...register("about", { required: true })} />
                         </div>
                         <div>
-                        <p className="ml-1 mb-1 font-semibold">Store image</p>
+                        <p className="ml-1 mb-1 font-semibold">Product image</p>
                         <Input type="file" {...register("image", { required: true })} />
                         </div>
                     </div>
@@ -105,4 +109,4 @@ const StoreModal = () => {
     )
 }
 
-export default StoreModal;
+export default ProductModal;

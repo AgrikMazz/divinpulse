@@ -1,8 +1,22 @@
+import getAllProducts from "@/app/actions/getAllProducts";
+import ModelCard from "@/components/ModelCard";
 import { Button } from "@/components/ui/button";
-import ModelCard from "./ModelCard";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Product } from "@/types/types";
 
-const TopPicks = () => {
+
+const TopPicks = async ({}) => {
+    let products: Product[] = [];
+
+    await getAllProducts().then((res) => {
+        if (res) {
+            for (let i = 0; i < res.length; i++) {
+                products.push(res[i]);
+            }
+        }
+    });
+    console.log(products);
+
     return (
         <div className="flex flex-col bg-gray-200 items-center py-8">
             <div className="text-center">
@@ -13,9 +27,11 @@ const TopPicks = () => {
             <div>
                 <Carousel>
                     <CarouselContent className=" w-80">
-                        <CarouselItem><ModelCard /></CarouselItem>
-                        <CarouselItem><ModelCard /></CarouselItem>
-                        <CarouselItem><ModelCard /></CarouselItem>
+                    {products.map((product: any) => (
+                        <CarouselItem>
+                            <ModelCard product={product} />
+                        </CarouselItem>
+                    ))}
                     </CarouselContent>
                     <CarouselPrevious />
                     <CarouselNext />

@@ -2,6 +2,7 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect, useParams } from "next/navigation";
+import Navbar from "../components/Navbar";
 
 const Store = async () => {
     const params = useParams();
@@ -12,10 +13,11 @@ const Store = async () => {
 
     return (
         <div>
+            <Navbar />
             <p>Navbar for {store.data.name}</p>
             <p>Welcome to dashboard!</p>
         </div>
     );
 }
- 
+
 export default Store;
