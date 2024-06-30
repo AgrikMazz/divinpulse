@@ -30,6 +30,8 @@ const ProductModal = () => {
             price: "",
             about: "",
             image: null,
+            category: "",
+            subcategory: ""
         }
     })
 
@@ -52,11 +54,11 @@ const ProductModal = () => {
             const uniqueId = uniqid();
             const productId = uniqid();
             const storeId = await getStoreId(String(userId));
+
             const { data: imageData, error: imageError } = await supabase.storage.from('product-images').upload(`product-image-${userId}-${values.productname}-${uniqueId}`, values.image?.[0], {
                 cacheControl: '3600',
                 upsert: false
             });
-
             if (imageError) {
                 console.log(imageError);
                 return;
@@ -64,7 +66,6 @@ const ProductModal = () => {
 
             const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: imageData?.path, price: values.price, id: `product-image-${userId}-${values.productname}-${productId}`, store_id: storeId  }]).select('*')
             console.log(productData);
-
             if (productError) {
                 console.log(productError);
                 return;
@@ -99,8 +100,18 @@ const ProductModal = () => {
                             <Textarea placeholder="Enter product description" {...register("about", { required: true })} />
                         </div>
                         <div>
-                        <p className="ml-1 mb-1 font-semibold">Product image</p>
-                        <Input type="file" {...register("image", { required: true })} />
+                            <p className="ml-1 mb-1 font-semibold">Product image</p>
+                            <Input type="file" {...register("image", { required: true })} />
+                        </div>
+                        <div>
+                            <p className="ml-1 mb-1 font-semibold">Category</p>
+                            <select {...register("category", { required: true })}>
+                                
+                            </select>
+                        </div>
+                        <div>
+                            <p className="ml-1 mb-1 font-semibold">Subcategory</p>
+                            <Input placeholder="Enter product subcategory" {...register("subcategory", { required: true })} />
                         </div>
                     </div>
                     <Button type="submit" onClick={() => handleSubmit(onSubmit)}>Submit</Button>

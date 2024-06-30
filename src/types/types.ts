@@ -20,3 +20,23 @@ export interface Product {
     user_id: string;
     price: number;
 }
+
+export interface Store {
+    id: string;
+    name: string;
+    label: string;
+    imageUrl: string;
+    userId: string;
+    active: string;
+}
+
+export interface Category {
+    id: number,
+    name: string
+}
+
+export interface SubCategory {
+    id: number,
+    name: string,
+    parent_cat_id: number
+}
