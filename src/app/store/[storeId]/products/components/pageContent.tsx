@@ -2,7 +2,6 @@
 
 import ModelCard from "@/components/ModelCard";
 import { Button } from "@/components/ui/button";
-import useProductModal from "@/hooks/useProductModal";
 import { Product } from "@/types/types";
 import { redirect, useParams, useRouter } from "next/navigation";
 import { CiCirclePlus } from "react-icons/ci";
@@ -12,7 +11,6 @@ interface PageContentProps {
 }
 
 const PageContent: React.FC<PageContentProps>= ({ products }) => {
-    const ProductModal = useProductModal();
     const params = useParams();
     const router = useRouter();
 

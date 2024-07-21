@@ -2,6 +2,8 @@ import { TbWorld } from "react-icons/tb";
 import getStoreId from "@/app/actions/getStoreId";
 import ButtonArea from "./ButtonArea";
 import { auth } from "@clerk/nextjs/server";
+import SearchInput from "./SearchInput";
+import CategoryBox from "./CategoryBox";
 
 const Header = async () => {
     const { userId } = auth();
@@ -12,12 +14,15 @@ const Header = async () => {
     else { isSeller = true; }
 
     return (
-        <div className="grid grid-cols-3 p-2 bg-gray-300">
+        <div className="flex flex-row items-center justify-center gap-x-2 p-2 border-b-2 bg-white">
             <div>
-                <TbWorld size={40} className="ml-4 hover:cursor-pointer hover:scale-105 transition" />
+                <TbWorld size={40} className="hover:cursor-pointer hover:scale-105 transition" />
+            </div>
+            <div>
+                <CategoryBox />
             </div>
             <div className="flex justify-center text-3xl font-bold">
-                DivinPulse
+                <SearchInput />
             </div>
             <ButtonArea storeId={String(storeId)} isSeller={isSeller} />
         </div>

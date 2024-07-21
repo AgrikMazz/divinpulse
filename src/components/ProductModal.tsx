@@ -64,7 +64,7 @@ const ProductModal = () => {
                 return;
             }
 
-            const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: imageData?.path, price: values.price, id: `product-image-${userId}-${values.productname}-${productId}`, store_id: storeId  }]).select('*')
+            const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: imageData?.path, price: values.price, store_id: storeId  }]).select('*')
             console.log(productData);
             if (productError) {
                 console.log(productError);

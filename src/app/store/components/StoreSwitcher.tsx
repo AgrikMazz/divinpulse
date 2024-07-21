@@ -81,5 +81,5 @@ function StoreSwitcher({
         </Popover>
     );
 }
- 
+
 export default StoreSwitcher;

@@ -9,16 +9,22 @@ export interface UserDetails {
 }
 
 export interface Product {
-    id: string;
+    id: number;
     active: string;
     name: string;
     description: string;
-    imageUrl: string;
+    imageUrl: string[];
     store_id: number;
     created_at: string;
-    category_id: string;
+    category_id: number;
     user_id: string;
     price: number;
+    subcategory_id: number;
+    stars: number;
+    stores: {
+        id: string;
+        name: string
+    }
 }
 
 export interface Store {
@@ -39,4 +45,9 @@ export interface SubCategory {
     id: number,
     name: string,
     parent_cat_id: number
+}
+
+export interface Image {
+    id: number,
+    imageUrls: string[]
 }
