@@ -1,7 +1,8 @@
 "use client";
 
-import ProductModal from "@/components/ProductModal";
-import StoreModal from "@/components/StoreModal";
+import ImageModal from "@/app/components/ImageModal";
+import ProductModal from "@/app/components/ProductModal";
+import StoreModal from "@/app/components/StoreModal";
 import { useEffect, useState } from "react";
 
 const ModalProvider = () => {
@@ -19,6 +20,7 @@ const ModalProvider = () => {
         <>
             <StoreModal />
             <ProductModal />
+            <ImageModal />
         </>
     )
 };

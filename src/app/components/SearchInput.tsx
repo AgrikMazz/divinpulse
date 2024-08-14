@@ -3,16 +3,19 @@
 import useSearch from "@/hooks/useSearch";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
+import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 const SearchInput = () => {
     const router = useRouter();
+    const [inp, setInp] = useState("");
     const q = useSearch((state) => state.query);
     const qSetter = useSearch((state) => state.setQuery);
 
-    const onSearch = () => {
+    const onSearch = (inp: string) => {
+        qSetter(inp);
         const query = {
-            title: q
+            title: inp
         }
         const url = qs.stringifyUrl({
             url: "/search",
@@ -27,15 +30,15 @@ const SearchInput = () => {
             <input
                 className="rounded-full mr-2 py-2 px-2 font-normal w-full"
                 placeholder="Search for anything"
-                value={q}
-                onChange={e => qSetter(e.target.value)}
+                value={inp}
+                onChange={e => setInp(e.target.value)}
                 onKeyDown={e => {
                 if (e.key === 'Enter') {
-                    onSearch();
+                    onSearch(inp);
                 }}}
             />
             <div className="flex w-8 h-8 z-10 items-center justify-center cursor-pointer bg-white rounded-full hover:bg-gray-100 transition-all">
-                <button onClick={onSearch}>
+                <button>
                     <FaSearch className="w-5 h-5 p-[2px]" />
                 </button>
             </div>

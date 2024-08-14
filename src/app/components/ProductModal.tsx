@@ -6,10 +6,10 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { Textarea } from "../../components/ui/textarea";
+import { Button } from "../../components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Input } from "./ui/input";
+import { Input } from "../../components/ui/input";
 import useProductModal from "@/hooks/useProductModal";
 import getStoreId from "@/app/actions/getStoreId";
 
@@ -30,8 +30,7 @@ const ProductModal = () => {
             price: "",
             about: "",
             image: null,
-            category: "",
-            subcategory: ""
+            category: ""
         }
     })
 
@@ -108,10 +107,6 @@ const ProductModal = () => {
                             <select {...register("category", { required: true })}>
                                 
                             </select>
-                        </div>
-                        <div>
-                            <p className="ml-1 mb-1 font-semibold">Subcategory</p>
-                            <Input placeholder="Enter product subcategory" {...register("subcategory", { required: true })} />
                         </div>
                     </div>
                     <Button type="submit" onClick={() => handleSubmit(onSubmit)}>Submit</Button>

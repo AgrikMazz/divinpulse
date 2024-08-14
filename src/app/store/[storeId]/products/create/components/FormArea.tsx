@@ -9,23 +9,25 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Category, SubCategory } from "@/types/types";
+import { Category } from "@/types/types";
+import { CiCirclePlus } from "react-icons/ci";
+import toast from "react-hot-toast";
+
 
 interface CreateProductProps {
     categories: Category[],
-    subcategories: SubCategory[]
 }
 
-const FormArea: React.FC<CreateProductProps> = ({ categories, subcategories }) => {
+const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
     const { userId } = useAuth();
     const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
-    const [formattedSubCats, setFormattedSubCats] = useState<SubCategory[]>([]);
     const [fileListUrl, setFileListUrl] = useState<string[]>([]);
     const [fileList, setFileList] = useState<FileList[]>([]);
     const [fileEnter, setFileEnter] = useState(false);
     const supabase = createClientComponentClient();
     const params = useParams();
+    const router = useRouter();
     const storeId = params.storeId;
 
     const {
@@ -38,20 +40,12 @@ const FormArea: React.FC<CreateProductProps> = ({ categories, subcategories }) =
             price: "",
             about: "",
             image: null,
-            category: "",
-            subcategory: ""
+            category: ""
         }
     })
 
     const onSelectCategory = async (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedCategory(event.target.value);
-        console.log(event.target.value);
-        setFormattedSubCats(subcategories.filter((subcategory: SubCategory) => subcategory.parent_cat_id === Number(event.target.value)));
-        console.log(formattedSubCats);
-    }
-
-    const onSelectSubCategory = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(event.target.value);
     }
 
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
@@ -64,38 +58,48 @@ const FormArea: React.FC<CreateProductProps> = ({ categories, subcategories }) =
                     cacheControl: '3600',
                     upsert: false
                 });
+
                 if (imageError) {
+                    toast.error("Image upload failed")
                     console.log(imageError);
                     return;
                 }
+
+                console.log(imageData);
             }
 
-            const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: fileListUrl, price: values.price, store_id: storeId, category_id: values.category, subcategory_id: values.subcategory }]).select('*')
-            console.log(productData);
+            const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: fileListUrl, price: values.price, store_id: storeId, category_id: values.category }]).select('*')
+            
             if (productError) {
+                toast.error("Product upload failed")
                 console.log(productError);
                 return;
             }
 
+            console.log(productData);
+            toast.success("Product created")
+
         } catch (error) {
             console.log(error)
+            toast.error("Product creation failed")
         } finally {
             setLoading(false);
+            router.push(`/store/${storeId}/products`);
         }
     }
-
+    // TODO: Drag event
     return (
-        <div>
+        <div className="w-full">
             <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="space-y-3 mb-4">
-                    <div className="container px-4 max-w-5xl mx-auto">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-4 mx-auto">
                         {fileListUrl.map((file) => (
                             <div
                                 key={file}
-                                className="w-72 h-72 flex flex-row"
+                                className="aspect-square flex flex-row rounded-md cursor-pointer hover:shadow-md transition bg-gray-50"
                             >
                             <img
-                                className="w-72 h-72"
+                                className="rounded-md object-contain"
                                 src={file}
                                 alt="uploaded"
                             />
@@ -126,24 +130,25 @@ const FormArea: React.FC<CreateProductProps> = ({ categories, subcategories }) =
                                     }
                                 }
                             });
-                            console.log(fileList);
+                            console.log(fileList.length);
                             } else {
                             [...e.dataTransfer.files].forEach((file, i) => {
                                 let blobUrl = URL.createObjectURL(file);
                                 setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
                             });
-                            console.log(fileList);
+                            console.log(fileList.length);
                             }
                         }}
                         className={`${
                             fileEnter ? "border-4" : "border-2"
-                        } mx-auto  bg-white flex flex-col w-full max-w-xs h-72 border-dashed items-center justify-center`}
+                        } mx-auto aspect-square rounded-lg bg-white flex flex-col border-dashed items-center justify-center`}
                         >
                         <label
                             htmlFor="file"
-                            className="h-full flex flex-col justify-center text-center"
+                            className="h-full relative flex flex-col justify-center text-center p-2"
                         >
-                            Click to upload or drag and drop
+                            <p className="">Click to upload or drag and drop</p>
+                            <CiCirclePlus className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 size-3/4 text-gray-500 opacity-20" />
                         </label>
                         <input
                             id="file"
@@ -158,17 +163,64 @@ const FormArea: React.FC<CreateProductProps> = ({ categories, subcategories }) =
                                     setFileList((prevFilelist) => [...prevFilelist, files]);
                                 }
                             }}
-                        />
+                            onDrop={(e) => {
+                                e.preventDefault();
+                                console.log(e.dataTransfer.files[0]);
+                                setFileList((prevFilelist) => [...prevFilelist, e.dataTransfer.files]);
+                                if (e.dataTransfer.items) {
+                                    [...e.dataTransfer.items].forEach((item, i) => {
+                                        if (item.kind === "file") {
+                                            const file = item.getAsFile();
+                                            if (file) {
+                                                let blobUrl = URL.createObjectURL(file);
+                                                setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                            }
+                                        }
+                                    });
+                                    console.log(fileList.length);
+                                    } else {
+                                    [...e.dataTransfer.files].forEach((file, i) => {
+                                        let blobUrl = URL.createObjectURL(file);
+                                        setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                    });
+                                    console.log(fileList.length);
+                                }}}
+                            onDragOver={(e) => {
+                                e.preventDefault();
+                                console.log(e.dataTransfer.files[0]);
+                                setFileList((prevFilelist) => [...prevFilelist, e.dataTransfer.files]);
+                                if (e.dataTransfer.items) {
+                                    [...e.dataTransfer.items].forEach((item, i) => {
+                                        if (item.kind === "file") {
+                                            const file = item.getAsFile();
+                                            if (file) {
+                                                let blobUrl = URL.createObjectURL(file);
+                                                setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                            }
+                                        }
+                                    });
+                                    console.log(fileList.length);
+                                    } else {
+                                    [...e.dataTransfer.files].forEach((file, i) => {
+                                        let blobUrl = URL.createObjectURL(file);
+                                        setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                    });
+                                    console.log(fileList.length);
+                                }}}
+                            />
                         </div>
+                    </div>
                         {fileList.length > 0 && <div className="flex flex-col items-center">
                             <button
-                                onClick={() => setFileList([])}
+                                onClick={() => {
+                                    setFileList([]),
+                                    setFileListUrl([])
+                                }}
                                 className="px-4 mt-10 uppercase py-2 tracking-widest outline-none bg-red-600 text-white rounded"
                             >
                                 Reset
                             </button>
                         </div>}
-                    </div>
                         <div className="">
                             <p className="ml-1 mb-1 font-semibold">Product Name</p>
                             <Input placeholder="Enter product name" {...register("productname", { required: true })} />
@@ -189,16 +241,8 @@ const FormArea: React.FC<CreateProductProps> = ({ categories, subcategories }) =
                                 ))}
                             </select>
                         </div>
-                        <div>
-                            <p className="ml-1 mb-1 font-semibold">Sub-category</p>
-                            <select className="w-full border border-slate-200 rounded-md p-2" {...register("subcategory", { required: true })} onChange={onSelectSubCategory}>
-                                {formattedSubCats.map((fsubcat) => (
-                                    <option key={fsubcat.id} value={fsubcat.id}>{fsubcat.name}</option>
-                                ))}
-                            </select>
-                        </div>
                     </div>
-                    <Button type="submit" onClick={() => handleSubmit(onSubmit)}>Submit</Button>
+                    <Button type="submit" onClick={() => handleSubmit(onSubmit)} className="mb-4">Submit</Button>
             </form>
         </div>
     );

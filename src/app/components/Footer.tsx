@@ -1,13 +1,13 @@
 import { GoChevronDown } from "react-icons/go";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Separator } from "./ui/separator";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const Buttons = ["Home", "Artifacts", "About", "Journal", "Craftsmen", "Artisans", "Updates", "Community", "Stories"]
 
 const Footer = () => {
     return (
-        <div className="flex flex-col h-fit bg-neutral-900 p-4">
+        <div className="w-full bg-neutral-900 p-4">
             <div className="flex flex-row justify-between p-2 mb-2">
                 <div>
                     <h1 className="text-3xl text-white font-semibold">PilgrimTales</h1>

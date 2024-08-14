@@ -1,5 +1,5 @@
 import getProductBySearch from "@/app/actions/getProductsBySearch";
-import ModelCard from "@/components/ModelCard";
+import ModelCard from "@/app/components/ModelCard";
 import { Product } from "@/types/types";
 
 interface SearchPageServerProps {
@@ -18,5 +18,5 @@ const SearchPageServer: React.FC<SearchPageServerProps> = async ({ query }) => {
         </div>
     );
 }
- 
+
 export default SearchPageServer;

@@ -19,10 +19,9 @@ export interface Product {
     category_id: number;
     user_id: string;
     price: number;
-    subcategory_id: number;
     stars: number;
     stores: {
-        id: string;
+        id: number;
         name: string
     }
 }
@@ -30,21 +29,22 @@ export interface Product {
 export interface Store {
     id: string;
     name: string;
-    label: string;
-    imageUrl: string;
     userId: string;
+    label: string;
+    iconUrl: string;
+    about: string;
     active: string;
+    bannerUrl: string;
+    addressLine1: string;
+    addressLine2: string;
+    city: string;
+    country: string;
+    postalCode: number;
 }
 
 export interface Category {
     id: number,
     name: string
-}
-
-export interface SubCategory {
-    id: number,
-    name: string,
-    parent_cat_id: number
 }
 
 export interface Image {

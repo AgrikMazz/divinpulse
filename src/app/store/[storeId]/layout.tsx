@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/app/components/Navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 

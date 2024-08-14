@@ -2,9 +2,9 @@ import { auth } from "@clerk/nextjs/server";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect } from "next/navigation";
 import { Store } from "@/types/types";
-import StoreSwitcher from "../app/store/components/StoreSwitcher";
 import { MainNav } from "@/app/store/components/MainNav";
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
+import StoreSwitcher from "../store/components/StoreSwitcher";
 
 const Navbar = async () => {
     const { userId } = auth();

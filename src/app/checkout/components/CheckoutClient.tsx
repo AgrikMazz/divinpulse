@@ -1,11 +1,10 @@
 "use client";
 
 import ModelCard from "@/app/components/ModelCard";
-import ModelCard2 from "@/app/components/ModelCard2";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
 
-const CartPageClient = () => {
+const CheckoutClient = () => {
     const cart = useCart();
     const amount = cart.items.reduce((acc, item) => acc + item.price, 0);
 
@@ -57,16 +56,24 @@ const CartPageClient = () => {
                     headers: { 'Content-Type': 'application/json' },
                 });
                 
-                const res = await result.json();
-                if (res.isOk) alert("payment succeed");
-                else {
-                    alert(res.message);
+                const paymentResult = await result.json();
+                if (paymentResult.isOk) {
+                    await fetch('/api/generate-invoice', {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ paymentResult }),
+                    });
+                } else {
+                    alert(paymentResult.message);
                 }
                 },
                 theme: {
                     color: '#3399cc',
                 },
             };
+            
             const paymentObject = new (window as any).Razorpay(options);
             paymentObject.on('payment.failed', function (response: any) {
                 alert(response.error.description);
@@ -91,4 +98,4 @@ const CartPageClient = () => {
     );
 }
  
-export default CartPageClient;
+export default CheckoutClient;

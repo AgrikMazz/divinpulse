@@ -1,5 +1,6 @@
 import { Image as ImageData, Product } from "@/types/types";
 import Gallery from "./Gallery";
+import ProductDetails from "./ProductDetails";
 
 interface ProductPageClientProps {
     product: Product,
@@ -7,14 +8,15 @@ interface ProductPageClientProps {
 }
 
 const ProductPageClient: React.FC<ProductPageClientProps> = ({ product, imageInfo }) => {
+
     return (
-        <div>
+        <div className="flex items-start justify-center max-w-6xl border">
             <div>
                 <Gallery imageInfo={imageInfo} />
             </div>
-            <p>Product Name: {product.name}</p>
-            <p>Product Description: {product.description}</p>
-            <p>Product Price: {product.price}</p>
+            <div className="hidden md:flex flex-col border p-3 mr-4 mt-4 min-w-60">
+                <ProductDetails product={product} />
+            </div>
         </div>
     );
 }

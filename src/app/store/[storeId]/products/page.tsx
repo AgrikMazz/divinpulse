@@ -1,8 +1,10 @@
 import React from "react";
-import getProducts from "@/app/actions/getProductsByStore";
+import getProductsByStore from "@/app/actions/getProductsByStore";
 import PageContent from "./components/pageContent";
-import { Product } from "@/types/types";
-import ModelCard from "@/components/ModelCard";
+import DashboardContent from "../../components/DashboardContent";
+import getStoreById from "@/app/actions/getStoreById";
+import { redirect } from "next/navigation";
+import loadStoreImages from "@/app/actions/loadStoreImages";
 
 interface ProductPageProps {
     params: {
@@ -11,20 +13,15 @@ interface ProductPageProps {
 }
 
 const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
-    let products: Product[] = [];
-
-    await getProducts(String(params.storeId)).then((res) => {
-        if (res) {
-            for (let i = 0; i < res.length; i++) {
-                products.push(res[i]);
-            }
-        }
-    });
-
+    const store = await getStoreById(params.storeId);
+    if (!store) { redirect("/"); }
+    const images = loadStoreImages(store);
+    const products = await getProductsByStore(String(params.storeId));
     console.log(products);
 
     return (
         <div>
+            <DashboardContent store={store} images={images} />
             <PageContent products={products} />
         </div>
     )

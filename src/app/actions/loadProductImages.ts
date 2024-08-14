@@ -1,7 +1,7 @@
 import { Product } from "@/types/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-const loadImages = (product: Product) => {
+const loadProductImages = (product: Product) => {
     const supabase = createClientComponentClient();
     console.log(product);
     let publicUrls: string[] = [];
@@ -12,4 +12,4 @@ const loadImages = (product: Product) => {
     return publicUrls;
 }
 
-export default loadImages;
+export default loadProductImages;

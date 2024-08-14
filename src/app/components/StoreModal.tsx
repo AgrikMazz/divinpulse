@@ -4,14 +4,13 @@ import uniqid from "uniqid";
 import Modal from "./Modal";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import useStoreModal from "../hooks/useStoreModal";
+import useStoreModal from "../../hooks/useStoreModal";
 import { useAuth } from "@clerk/nextjs";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Textarea } from "./ui/textarea";
-import { Button } from "./ui/button";
+import { Textarea } from "../../components/ui/textarea";
+import { Button } from "../../components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Input } from "./ui/input";
-import getStoreId from "@/app/actions/getStoreId";
+import { Input } from "../../components/ui/input";
 
 const StoreModal = () => {
     const router = useRouter();
@@ -22,8 +21,7 @@ const StoreModal = () => {
 
     const {
         register,
-        handleSubmit,
-        reset
+        handleSubmit
     } = useForm<FieldValues>({
         defaultValues: {
             storename: "",

@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import FormArea from "./components/FormArea";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -6,20 +7,14 @@ const CreateProductPage = async () => {
 
     const {data: categoryData, error: categoryError} = await supabase.from('categories').select('*');
     if (categoryError) {
+        toast.error("Couldn't load categories");
         console.log(categoryError);
         return;
     }
 
-    const {data: subCategoryData, error: subCategoryError} = await supabase.from('sub-categories').select('*');
-        if (subCategoryError) {
-            console.log(subCategoryError);
-            return;
-        }
-
     return (
-        <div className="m-2">
-            <h1 className="text-2xl font-semibold">Create Product</h1>
-            <FormArea categories={categoryData} subcategories={subCategoryData} />
+        <div className="m-5">
+            <FormArea categories={categoryData} />
         </div>
     );
 }

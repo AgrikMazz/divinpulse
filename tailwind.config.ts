@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      aspectRatio: {
+        '6/5': '1.2',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

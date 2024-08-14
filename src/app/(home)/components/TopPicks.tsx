@@ -1,9 +1,8 @@
 import getAllProducts from "@/app/actions/getAllProducts";
-import ModelCard from "@/components/ModelCard";
+import ModelCard from "@/app/components/ModelCard";
 import { Button } from "@/components/ui/button";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Product } from "@/types/types";
-
 
 const TopPicks = async ({}) => {
     let products: Product[] = [];

@@ -1,42 +1,41 @@
 import { Product } from "@/types/types";
-import { MouseEventHandler } from "react";
 import toast from "react-hot-toast";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-interface CartStore {
+interface FavouriteStore {
     items: Product[],
     addItem: (product: Product) => void,
     removeItem: (id: number) => void
     removeAll: () => void
 }
 
-const useCart = create(
-    persist<CartStore>((set, get) => ({
+const useFavourite = create(
+    persist<FavouriteStore>((set, get) => ({
     items: [],
     addItem: (product: Product) =>{
         const currentItems = get().items;
         const existingItems = currentItems.find((item) => item.id === product.id);
 
         if (existingItems) {
-            return toast("Item already in cart");
+            return toast("Item already in Favourites");
         }
 
         set({ items: [...get().items, product] });
-        toast.success("Item added to cart");
+        toast.success("Item added to Favourites");
     },
 
     removeItem: (id: number) => {
         set({ items: [...get().items.filter((item) => item.id !== id)] });
-        toast.success("Item removed from cart");
+        toast.success("Item removed from Favourites");
     },
 
     removeAll: () => set({ items: [] })
 
 }), {
-    name: "cart",
+    name: "Favourites",
     storage: createJSONStorage(() => localStorage)
 })
 )
 
-export default useCart;
+export default useFavourite;

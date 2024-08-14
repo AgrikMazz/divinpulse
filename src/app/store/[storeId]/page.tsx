@@ -1,5 +1,8 @@
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { redirect, useParams } from "next/navigation";
+import DashboardContent from "../components/DashboardContent";
+import getStoreById from "@/app/actions/getStoreById";
+import loadStoreImage from "@/app/actions/loadStoreImages";
+import getProductsByStore from "@/app/actions/getProductsByStore";
 
 interface Props {
     params: {
@@ -8,15 +11,14 @@ interface Props {
 }
 
 const Store: React.FC<Props> = async ({ params }) => {
-    const supabase = createClientComponentClient();
-    const store = await supabase.from("stores").select().eq("id", params.storeId).single();
-
+    const store = await getStoreById(params.storeId);
     if (!store) { redirect("/"); }
+    const images = loadStoreImage(store);
+    const products = await getProductsByStore(params.storeId);
 
     return (
         <div>
-            <p>Navbar for {store.data.name}</p>
-            <p>Welcome to dashboard!</p>
+            <DashboardContent store={store} images={images} />
         </div>
     );
 }
