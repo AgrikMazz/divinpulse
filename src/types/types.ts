@@ -19,10 +19,16 @@ export interface Product {
     category_id: number;
     user_id: string;
     price: number;
-    stars: number;
+    rating: number;
+    number_of_ratings: number;
+    number_of_reviews: number;
     stores: {
         id: number;
         name: string
+    };
+    categories: {
+        id: number;
+        path: string
     }
 }
 
@@ -50,4 +56,14 @@ export interface Category {
 export interface Image {
     id: number,
     imageUrls: string[]
+}
+
+export interface Review {
+    id: number,
+    product_id: number,
+    user_id: string,
+    rating: number,
+    review: string,
+    name: string,
+    created_at: string
 }

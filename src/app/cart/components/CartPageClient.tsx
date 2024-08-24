@@ -4,10 +4,14 @@ import ModelCard from "@/app/components/ModelCard";
 import ModelCard2 from "@/app/components/ModelCard2";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
+import { Product } from "@/types/types";
+import { useState } from "react";
+import BeatLoader from "react-spinners/BeatLoader";
 
 const CartPageClient = () => {
     const cart = useCart();
     const amount = cart.items.reduce((acc, item) => acc + item.price, 0);
+    const [loading, setLoading] = useState(false);
 
     const createOrderId = async () => {
         try {
@@ -80,11 +84,19 @@ const CartPageClient = () => {
     return (
         <div className="">
             <script src="https://checkout.razorpay.com/v1/checkout.js" />
-            <h1 className="mx-4 text-xl">Cart</h1>
-            <div className="">
-                {cart.items.map((item) => (
-                    <div className="max-w-72"><ModelCard key={item.id} product={item} /></div>
-                ))}
+            <div className="m-4">
+                <p className="text-2xl font-semibold">Your Cart</p>
+            </div>
+            <div className="flex items-center justify-center">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2">
+                    {cart && !loading && cart.items.map((product: Product) => (
+                        <div className="ml-4">
+                            <ModelCard key={product.id} product={product} />
+                        </div>
+                    ))}
+                </div>
+                {cart.items.length === 0 && !loading && <div className="ml-4">No products found</div>}
+                {loading && <div className="ml-4 mt-8"><BeatLoader /></div>}
             </div>
             <Button onClick={processPayment} className="m-4">Checkout</Button>
         </div>

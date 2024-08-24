@@ -1,3 +1,5 @@
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 import CartPageClient from "./components/CartPageClient";
 
 interface CartPageProps {
@@ -8,8 +10,14 @@ interface CartPageProps {
 
 const CartPage: React.FC<CartPageProps> = async ({ params }) => {
     return(
-        <div>
-            <CartPageClient />
+        <div className="flex flex-col min-h-screen">
+            <div className="flex-grow">
+                <Header />
+                <CartPageClient />
+            </div>
+            <div className="mt-auto">
+                <Footer />
+            </div>
         </div>
     )
 }

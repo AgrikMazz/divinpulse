@@ -23,7 +23,7 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
     const [loading, setLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState<string>("");
     const [fileListUrl, setFileListUrl] = useState<string[]>([]);
-    const [fileList, setFileList] = useState<FileList[]>([]);
+    const [fileArray, setFileArray] = useState<File[]>([]);
     const [fileEnter, setFileEnter] = useState(false);
     const supabase = createClientComponentClient();
     const params = useParams();
@@ -53,19 +53,19 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
             setLoading(true);
             const storageId = uniqid();
 
-            for (let i = 0; i < fileList.length; i++){
-                const { data: imageData, error: imageError } = await supabase.storage.from('product-images').upload(fileListUrl[i], fileList[i]?.[0], {
-                    cacheControl: '3600',
-                    upsert: false
-                });
+            for (let i = 0; i < fileArray.length; i++){
+                    const { data: imageData, error: imageError } = await supabase.storage.from('product-images').upload(fileListUrl[i], fileArray[i], {
+                        cacheControl: '3600',
+                        upsert: false
+                    });
 
-                if (imageError) {
-                    toast.error("Image upload failed")
-                    console.log(imageError);
-                    return;
-                }
+                    if (imageError) {
+                        toast.error("Image upload failed")
+                        console.log(imageError);
+                        return;
+                    }
 
-                console.log(imageData);
+                    console.log(imageData);
             }
 
             const {data: productData, error: productError} = await supabase.from('products').insert([{ name: values.productname, user_id: userId, description: values.about, imageUrl: fileListUrl, price: values.price, store_id: storeId, category_id: values.category }]).select('*')
@@ -87,8 +87,10 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
             router.push(`/store/${storeId}/products`);
         }
     }
+
     // TODO: Drag event
     return (
+        
         <div className="w-full">
             <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="space-y-3 mb-4">
@@ -98,11 +100,11 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
                                 key={file}
                                 className="aspect-square flex flex-row rounded-md cursor-pointer hover:shadow-md transition bg-gray-50"
                             >
-                            <img
-                                className="rounded-md object-contain"
-                                src={file}
-                                alt="uploaded"
-                            />
+                                <img
+                                    className="rounded-md object-contain"
+                                    src={file}
+                                    alt="uploaded"
+                                />
                             </div>
                         ))}
                         <div
@@ -121,22 +123,22 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
                             e.preventDefault();
                             setFileEnter(false);
                             if (e.dataTransfer.items) {
-                            [...e.dataTransfer.items].forEach((item, i) => {
-                                if (item.kind === "file") {
-                                    const file = item.getAsFile();
-                                    if (file) {
-                                        let blobUrl = URL.createObjectURL(file);
-                                        setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                [...e.dataTransfer.items].forEach((item, i) => {
+                                    if (item.kind === "file") {
+                                        const file = item.getAsFile();
+                                        if (file) {
+                                            let blobUrl = URL.createObjectURL(file);
+                                            setFileArray((prevFilelist) => [...prevFilelist, file]);
+                                            setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                        }
                                     }
-                                }
-                            });
-                            console.log(fileList.length);
+                                });
                             } else {
-                            [...e.dataTransfer.files].forEach((file, i) => {
-                                let blobUrl = URL.createObjectURL(file);
-                                setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
-                            });
-                            console.log(fileList.length);
+                                [...e.dataTransfer.files].forEach((file, i) => {
+                                    let blobUrl = URL.createObjectURL(file);
+                                    setFileArray((prevFilelist) => [...prevFilelist, file]);
+                                    setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
+                                });
                             }
                         }}
                         className={`${
@@ -154,66 +156,26 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
                             id="file"
                             type="file"
                             className="hidden"
+                            multiple
                             onChange={(e) => {
-                                console.log(e.target.files);
                                 let files = e.target.files;
-                                if (files && files[0]) {
-                                    let blobUrl = URL.createObjectURL(files[0]);
-                                    fileListUrl.push(blobUrl);
-                                    setFileList((prevFilelist) => [...prevFilelist, files]);
+                                if (files) {
+                                    for (let i = 0; i < files.length; i++) {
+                                        if (files[i]) {
+                                            let blobUrl = URL.createObjectURL(files[i]);
+                                            fileListUrl.push(blobUrl);
+                                            setFileArray((prevFilelist) => [...prevFilelist, files[i]]);
+                                        }
+                                    }
                                 }
                             }}
-                            onDrop={(e) => {
-                                e.preventDefault();
-                                console.log(e.dataTransfer.files[0]);
-                                setFileList((prevFilelist) => [...prevFilelist, e.dataTransfer.files]);
-                                if (e.dataTransfer.items) {
-                                    [...e.dataTransfer.items].forEach((item, i) => {
-                                        if (item.kind === "file") {
-                                            const file = item.getAsFile();
-                                            if (file) {
-                                                let blobUrl = URL.createObjectURL(file);
-                                                setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
-                                            }
-                                        }
-                                    });
-                                    console.log(fileList.length);
-                                    } else {
-                                    [...e.dataTransfer.files].forEach((file, i) => {
-                                        let blobUrl = URL.createObjectURL(file);
-                                        setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
-                                    });
-                                    console.log(fileList.length);
-                                }}}
-                            onDragOver={(e) => {
-                                e.preventDefault();
-                                console.log(e.dataTransfer.files[0]);
-                                setFileList((prevFilelist) => [...prevFilelist, e.dataTransfer.files]);
-                                if (e.dataTransfer.items) {
-                                    [...e.dataTransfer.items].forEach((item, i) => {
-                                        if (item.kind === "file") {
-                                            const file = item.getAsFile();
-                                            if (file) {
-                                                let blobUrl = URL.createObjectURL(file);
-                                                setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
-                                            }
-                                        }
-                                    });
-                                    console.log(fileList.length);
-                                    } else {
-                                    [...e.dataTransfer.files].forEach((file, i) => {
-                                        let blobUrl = URL.createObjectURL(file);
-                                        setFileListUrl((prevFilelist) => [...prevFilelist, blobUrl]);
-                                    });
-                                    console.log(fileList.length);
-                                }}}
                             />
                         </div>
                     </div>
-                        {fileList.length > 0 && <div className="flex flex-col items-center">
+                        {fileArray.length > 0 && <div className="flex flex-col items-center">
                             <button
                                 onClick={() => {
-                                    setFileList([]),
+                                    setFileArray([]),
                                     setFileListUrl([])
                                 }}
                                 className="px-4 mt-10 uppercase py-2 tracking-widest outline-none bg-red-600 text-white rounded"
@@ -221,6 +183,12 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
                                 Reset
                             </button>
                         </div>}
+                        <button
+                            onClick={() => {console.log(fileArray); console.log(fileListUrl);}}
+                            className="px-4 mt-10 uppercase py-2 tracking-widest outline-none bg-red-600 text-white rounded"
+                        >
+                            Show
+                        </button>
                         <div className="">
                             <p className="ml-1 mb-1 font-semibold">Product Name</p>
                             <Input placeholder="Enter product name" {...register("productname", { required: true })} />

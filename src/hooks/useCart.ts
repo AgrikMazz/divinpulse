@@ -7,7 +7,8 @@ import { persist, createJSONStorage } from "zustand/middleware";
 interface CartStore {
     items: Product[],
     addItem: (product: Product) => void,
-    removeItem: (id: number) => void
+    removeItem: (id: number) => void,
+    checkItem: (id: number) => boolean,
     removeAll: () => void
 }
 
@@ -29,6 +30,10 @@ const useCart = create(
     removeItem: (id: number) => {
         set({ items: [...get().items.filter((item) => item.id !== id)] });
         toast.success("Item removed from cart");
+    },
+
+    checkItem: (id: number) => {
+        return get().items.some((item) => item.id === id);
     },
 
     removeAll: () => set({ items: [] })

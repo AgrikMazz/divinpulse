@@ -6,7 +6,8 @@ import { persist, createJSONStorage } from "zustand/middleware";
 interface FavouriteStore {
     items: Product[],
     addItem: (product: Product) => void,
-    removeItem: (id: number) => void
+    removeItem: (id: number) => void,
+    checkItem: (id: number) => boolean,
     removeAll: () => void
 }
 
@@ -28,6 +29,10 @@ const useFavourite = create(
     removeItem: (id: number) => {
         set({ items: [...get().items.filter((item) => item.id !== id)] });
         toast.success("Item removed from Favourites");
+    },
+
+    checkItem: (id: number) => {
+        return get().items.some((item) => item.id === id);
     },
 
     removeAll: () => set({ items: [] })

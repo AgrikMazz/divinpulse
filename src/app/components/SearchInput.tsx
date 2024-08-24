@@ -38,7 +38,7 @@ const SearchInput = () => {
                 }}}
             />
             <div className="flex w-8 h-8 z-10 items-center justify-center cursor-pointer bg-white rounded-full hover:bg-gray-100 transition-all">
-                <button>
+                <button onClick={() => onSearch(inp)}>
                     <FaSearch className="w-5 h-5 p-[2px]" />
                 </button>
             </div>

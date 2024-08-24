@@ -16,7 +16,7 @@ interface ProductDetailsProps {
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     const ImageModal = useImageModal();
     return (
-        <div className=" max-w-80">
+        <div className="">
             <div className="text-2xl font-bold text-green-700 my-2">Rs. {product.price}</div>
             <div className="text-gray-700 my-2">{product.name}</div>
             <div className=" text-sm font-semibold mb-3">{product.stores.name}</div>

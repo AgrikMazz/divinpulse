@@ -16,8 +16,8 @@ const Gallery: React.FC<CartPageClientProps> = ({ imageInfo }) => {
     const ImageModal =useImageModal();
 
     return (
-        <div className="flex p-4 gap-x-4 h-fit max-w-[750px] aspect-6/5">
-            <ScrollArea className="relative border shadow-md rounded-lg h-full max-w-28 overflow-y-hidden">
+        <div className="flex gap-x-4 h-fit max-w-[750px] aspect-6/5">
+            <ScrollArea className="relative border shadow-md rounded-md h-full max-w-28 overflow-y-hidden">
                 <TabGroup>
                     <TabList className="flex relative flex-col flex-grow gap-y-2 py-2">
                         {imageInfo && imageInfo.imageUrls.map((imageUrl, index) => (
