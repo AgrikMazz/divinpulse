@@ -22,6 +22,7 @@ export interface Product {
     rating: number;
     number_of_ratings: number;
     number_of_reviews: number;
+    total_sold: number;
     stores: {
         id: number;
         name: string

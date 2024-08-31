@@ -33,7 +33,7 @@ export function MainNav ({
         <div className="flex flex-row w-full items-center justify-between">
             <div className="flex items-center justify-between gap-x-2">
                 {routes.map((route) => (
-                    <Link key={route.href} href={route.href} className={cn("text-sm font-medium transition-colors hover:text-primary", route.active ? " text-black dark:text-white" : "text-muted-foreground")}>
+                    <Link key={route.href} href={route.href} onClick={() => window.location.assign(route.href)} className={cn("text-sm font-medium transition-colors hover:text-primary", route.active ? " text-black dark:text-white" : "text-muted-foreground")}>
                         {route.label}
                     </Link>
                 ))}

@@ -70,7 +70,7 @@ const ModelCard: React.FC<Props> = ({ product }) => {
                             <img
                                 src={imagePath}
                                 alt={product.name}
-                                className=" aspect-square object-contain"
+                                className="rounded-md aspect-square object-contain"
                                 onClick={() => window.location.href = `/product/${product.id}`}
                             />
                         </Link>

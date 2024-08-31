@@ -1,3 +1,4 @@
+import { Product } from "@/types/types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const getAllProducts = async () => {
@@ -10,7 +11,7 @@ const getAllProducts = async () => {
     }
     
     console.log(productData);
-    return productData;
+    return productData as Product[];
 }
  
 export default getAllProducts;

@@ -18,7 +18,7 @@ const Store: React.FC<Props> = async ({ params }) => {
 
     return (
         <div>
-            <DashboardContent store={store} images={images} />
+            <DashboardContent store={store} images={images} products={products} />
         </div>
     );
 }

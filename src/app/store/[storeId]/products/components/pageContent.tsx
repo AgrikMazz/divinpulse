@@ -1,6 +1,5 @@
 "use client";
 
-import { categories } from "@/app/components/CategoryBox";
 import ModelCard from "@/app/components/ModelCard";
 import { Button } from "@/components/ui/button";
 import { Product } from "@/types/types";
@@ -8,10 +7,11 @@ import { useParams, useRouter } from "next/navigation";
 import { CiCirclePlus } from "react-icons/ci";
 
 interface PageContentProps {
-    products: Product[] | null
+    products: Product[] | null,
+    categories: string[] | null
 }
 
-const PageContent: React.FC<PageContentProps>= ({ products }) => {
+const PageContent: React.FC<PageContentProps>= ({ products, categories }) => {
     const params = useParams();
     const router = useRouter();
 
@@ -20,9 +20,9 @@ const PageContent: React.FC<PageContentProps>= ({ products }) => {
             <Button className="m-2 hover:bg-gray-100" variant={"outline"} onClick={() => router.push(`/store/${params.storeId}/products/create`)}><CiCirclePlus size={25} className="mr-2" /> Create Product</Button>
             <div className="flex items-center justify-center">
                 <div className="hidden md:block w-36 border border-r">
-                    {categories.map((category, index) => (
+                    {categories?.map((category, index) => (
                         <div key={index} className="p-2">
-                            <p className="text-center">{category.category}</p>
+                            <p className="text-center">{category}</p>
                         </div>
                     ))}
                 </div>

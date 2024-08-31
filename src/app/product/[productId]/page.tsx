@@ -22,7 +22,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
         return null;
     }
     const product: Product = productData[0];
-    const categories: any[] = product.categories.path.split('/').map((category) => +category);
+    const categories: number[] = product.categories.path.split('/').map((category) => +category);
     const similarCatProducts = await getProductsByCategory(categories);
     console.log(similarCatProducts)
 
