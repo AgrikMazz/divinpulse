@@ -12,7 +12,7 @@ const ReviewCard: React.FC<ReviewCardProps> = ({ review }) => {
         <div className="border-b-2 border-gray-400 p-2">
             <StarRating rating={review.rating} readOnly={true} />
             <p className="mb-1">{review.review}</p>
-            <p className="text-gray-600 text-sm">by {review.name}</p>
+            <p className="text-gray-600 text-sm">by {review.username}</p>
         </div>
     );
 }

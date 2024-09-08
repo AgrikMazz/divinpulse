@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import SupabaseProvider from "../../providers/SupabaseProvider";
-import ModalProvider from "../../providers/ModalProvider";
-import ToasterProvider from "../../providers/ToasterProvider";
-import UserProvider from "../../providers/UserProvider";
-import { ClerkProvider, SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import ToasterProvider from "./providers/ToasterProvider";
+import SupabaseProvider from "./providers/SupabaseProvider";
+import UserProvider from "./providers/UserProvider";
+import ModalProvider from "./providers/ModalProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -47,6 +47,8 @@ export interface Store {
     city: string;
     country: string;
     postalCode: number;
+    storeImageUrls: string[];
+    storeAbout: string;
 }
 
 export interface Category {
@@ -65,6 +67,6 @@ export interface Review {
     user_id: string,
     rating: number,
     review: string,
-    name: string,
+    username: string,
     created_at: string
 }

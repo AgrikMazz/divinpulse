@@ -86,7 +86,7 @@ const CheckoutClient = () => {
 
     return (
         <div className="">
-            <script src="https://checkout.razorpay.com/v1/checkout.js" />
+            <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
             <h1 className="mx-4 text-xl">Cart</h1>
             <div className="">
                 {cart.items.map((item) => (

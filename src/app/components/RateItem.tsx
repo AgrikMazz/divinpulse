@@ -5,8 +5,10 @@ import StarRating from "./StarRating";
 import { useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useAuth } from "@clerk/nextjs";
+import { useUser } from '@clerk/clerk-react'
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 interface Props {
     product: Product,
@@ -14,14 +16,20 @@ interface Props {
 
 const RateItem: React.FC<Props> = ({product}) => {
     const { userId } = useAuth();
+    const { user } = useUser();
     const [review, setReview] = useState<string>("");
     const newNumberOfRatings = product.number_of_ratings + 1;
     const supabase = createClientComponentClient();
     const onSubmit = async () => {
-        const { data: ReviewData1, error: ReviewError1 } = await supabase.from("products-users-nest").update({ review: review }).eq("user_id", userId).eq("product_id", product.id);
+        console.log("loading...");
+        const { data: ReviewData1, error: ReviewError1 } = await supabase.from("products-users-nest").upsert({ review: review, product_id: product.id, user_id: userId, username: user?.username }).eq("user_id", userId).eq("product_id", product.id);
         if (ReviewError1) {
             console.log(ReviewError1);
         }
+        if (ReviewData1) {
+            toast.success("Review added");
+        }
+        console.log("Still loading...");
     }
     return (
         <div className="my-4">

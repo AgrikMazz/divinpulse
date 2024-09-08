@@ -28,10 +28,12 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
 
     return (
         <div>
-            <Button className="m-2 hover:bg-gray-100" variant={"outline"} onClick={() => router.push(`/store/${params.storeId}/complete`)}><CiCirclePlus size={25} className="mr-2" />Complete Store</Button>
             <div>
-                <img className="w-full" src={images.bannerImageUrl} />
-                <div className="flex items-center justify-between w-full h-48 bg-slate-50">
+                {images.bannerImageUrl === null ?
+                    <img className="w-full" src={images.bannerImageUrl} /> :
+                    <div></div>
+                }
+                <div className="flex items-center justify-between mb-10 w-full h-48 bg-slate-50">
                     <div className="flex mt-10">
                         <div className="w-32 h-32 border flex items-center justify-center mx-8 rounded-lg bg-yellow-50">
                             <img className="rounded-lg" src={images.iconImageUrl} />

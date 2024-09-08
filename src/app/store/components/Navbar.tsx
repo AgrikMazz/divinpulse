@@ -4,9 +4,14 @@ import { redirect } from "next/navigation";
 import { Store } from "@/types/types";
 import { MainNav } from "@/app/store/components/MainNav";
 import { Separator } from "@/components/ui/separator";
-import StoreSwitcher from "../store/components/StoreSwitcher";
+import StoreSwitcher from "./StoreSwitcher";
+import getStoreById from "@/app/actions/getStoreById";
 
-const Navbar = async () => {
+interface NavbarProps {
+    storeId: string
+}
+
+const Navbar: React.FC<NavbarProps> = async ({ storeId }) => {
     const { userId } = auth();
     const supabase = createClientComponentClient();
 
@@ -14,20 +19,14 @@ const Navbar = async () => {
         redirect("/sign-in");
     }
 
-    const stores = await supabase.from("stores").select().eq("userId", userId);
-
-    const formattedStores = stores.data?.map((store: Store) => {
-        return {
-            id: store.id,
-            name: store.name
-        }
-    })
+    const { data: storeData, error: storeError } = await supabase.from("stores").select().eq("userId", userId);
+    const activeStore = await getStoreById(storeId);    
 
     return (
         <div>
             <div className="flex items-center">
-                <div className="m-2">{formattedStores && <StoreSwitcher stores={formattedStores} />}</div>
-                <MainNav />
+                <div className="m-2">{storeData && <StoreSwitcher stores={storeData} />}</div>
+                {activeStore && <MainNav store={activeStore} />}
             </div>
             <Separator />
         </div>

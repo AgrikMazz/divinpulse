@@ -1,6 +1,6 @@
-import Navbar from "@/app/components/Navbar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import Navbar from "../components/Navbar";
 
 export default async function StoreLayout ({
     children,
@@ -14,7 +14,7 @@ export default async function StoreLayout ({
 
     return (
         <>
-            <Navbar />
+            <Navbar storeId={params.storeId} />
             {children}
         </>
     )

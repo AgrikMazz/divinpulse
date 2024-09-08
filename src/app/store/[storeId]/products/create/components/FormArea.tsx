@@ -88,12 +88,11 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
         }
     }
 
-    // TODO: Drag event
-    return (
-        
+    return (        
         <div className="w-full">
             <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="space-y-3 mb-4">
+                <div className="space-y-3 mb-4">
+                    <h1 className="font-semibold">Upload Product Image</h1>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4 px-4 mx-auto">
                         {fileListUrl.map((file) => (
                             <div
@@ -183,12 +182,6 @@ const FormArea: React.FC<CreateProductProps> = ({ categories }) => {
                                 Reset
                             </button>
                         </div>}
-                        <button
-                            onClick={() => {console.log(fileArray); console.log(fileListUrl);}}
-                            className="px-4 mt-10 uppercase py-2 tracking-widest outline-none bg-red-600 text-white rounded"
-                        >
-                            Show
-                        </button>
                         <div className="">
                             <p className="ml-1 mb-1 font-semibold">Product Name</p>
                             <Input placeholder="Enter product name" {...register("productname", { required: true })} />

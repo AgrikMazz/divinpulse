@@ -5,6 +5,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import useStoreModal from "@/hooks/useStoreModal";
 import { cn } from "@/lib/utils";
+import { Store } from "@/types/types";
 import { Check, ChevronDownIcon, PlusCircle, Store as StoreIcon } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -12,7 +13,7 @@ import React, { useState } from "react";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface StoreSwitcherProps extends PopoverTriggerProps {
-    stores: {id: string, name: string}[];
+    stores: Store[];
 }
 
 function StoreSwitcher({
@@ -33,6 +34,7 @@ function StoreSwitcher({
     const onStoreSelect = (store: {id: string, name: string}) => {
         setOpen(false);
         router.push(`/store/${store.id}`);
+        router.refresh();
     }
 
     return (

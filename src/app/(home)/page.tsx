@@ -3,9 +3,12 @@ import StartArea from "./components/StartArea";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import getAllProducts from "../actions/getAllProducts";
+import Faqs from "./components/Faqs";
+import getAllStores from "../actions/getAllStores";
 
 export default async function Home() {
   const products = await getAllProducts();
+  const stores = await getAllStores();
 
   return (
     <main className="h-full w-full bg-gray-200 items-center justify-between">
@@ -13,7 +16,8 @@ export default async function Home() {
         <div className="flex-grow">
           <Header />
           <StartArea />
-          <ContentArea products={products} />
+          <ContentArea products={products} stores={stores} />
+          <Faqs />
         </div>
         <div className="mt-auto">
           <Footer />
