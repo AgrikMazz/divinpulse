@@ -23,9 +23,9 @@ const ContentArea: React.FC<Props> = ({
 }) => {
     let storeImages: string[] = [];
     //@ts-ignore
-    stores.forEach(async (store) => {
+    {stores && stores.forEach(async (store) => {
         storeImages.push(loadStoreIcon(store));
-    })
+    })}
   
     return (
         <div>
