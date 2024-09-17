@@ -27,7 +27,7 @@ const TopPicks = async ({}) => {
                 <Carousel>
                     <CarouselContent className=" w-80">
                     {products.map((product) => (
-                        <CarouselItem>
+                        <CarouselItem key={product.id}>
                             <ModelCard key={product.id} product={product} />
                         </CarouselItem>
                     ))}

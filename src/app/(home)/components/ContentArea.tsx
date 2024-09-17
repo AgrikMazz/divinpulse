@@ -35,7 +35,7 @@ const ContentArea: React.FC<Props> = ({
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {products?.map((product, index) => (
-                                <div>
+                                <div key={product.id}>
                                     {index<8 && <ModelCard key={product.id} product={product} />}
                                 </div>
                             ))}
@@ -48,7 +48,7 @@ const ContentArea: React.FC<Props> = ({
                         <div className="relative mt-8 text-4xl font-serif font-semibold">Our Commitment to Quality and Integrity</div>
                         <div className="relative container mx-auto grid grid-cols-1 md:grid-rows-2 md:grid-cols-2 gap-x-56 gap-y-10 w-full h-full m-14">
                             {card_contents_1.map((content) => (
-                                <div className="bg-white opacity-80 border rounded-lg flex flex-col gap-y-3 p-3 items-center justify-center">
+                                <div key={content.title} className="bg-white opacity-80 border rounded-lg flex flex-col gap-y-3 p-3 items-center justify-center">
                                     <h1 className="text-2xl font-semibold">{content.title}</h1>
                                     <p className="text-lg">{content.content}</p>
                                 </div>
@@ -60,7 +60,7 @@ const ContentArea: React.FC<Props> = ({
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {stores?.map((store, index) => (
-                                <div>
+                                <div key={store.id}>
                                     <PilgrimageCard name={store.name} location={store.city} image={storeImages[index]} id={store.id} />
                                 </div>
                             ))}
@@ -73,7 +73,7 @@ const ContentArea: React.FC<Props> = ({
                         <div className="relative mt-8 text-4xl font-serif font-semibold">Buy sacred items that align with your faith</div>
                         <div className="relative container mx-auto grid grid-cols-1 md:grid-rows-2 md:grid-cols-2 gap-x-56 gap-y-10 w-full h-full m-14">
                             {card_contents_2.map((content) => (
-                                <div className="bg-white opacity-80 border rounded-lg flex flex-col gap-y-3 p-3 items-center justify-center">
+                                <div key={content.title} className="bg-white opacity-80 border rounded-lg flex flex-col gap-y-3 p-3 items-center justify-center">
                                     <h1 className="text-2xl font-semibold">{content.title}</h1>
                                     <p className="text-lg">{content.content}</p>
                                 </div>
@@ -81,11 +81,11 @@ const ContentArea: React.FC<Props> = ({
                         </div>
                 </div>
                 <div className="mb-10">
-                    <h1 className="text-3xl font-serif font-semibold ml-4 text-left">Read about India's rich cultural heritage</h1>
+                    <h1 className="text-3xl font-serif font-semibold ml-4 text-left">Read about the rich cultural heritage of India</h1>
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {blogs?.map((blog) => (
-                                <div>
+                                <div key={blog.title}>
                                     <BlogCard title={blog.title} description={blog.description} image={blog.image.src} />
                                 </div>
                             ))}

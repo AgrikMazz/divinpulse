@@ -22,7 +22,7 @@ const AboutContent: React.FC<Props> = async({ store }) => {
   return (
     <div className="flex flex-col justify-center">
       <div className="flex flex-col items-center justify-center my-4">
-        {storeImages.storePublicUrls.map((url) => <div className="flex flex-col justify-center max-w-[800px]">
+        {storeImages.storePublicUrls.map((url) => <div key={url} className="flex flex-col justify-center max-w-[800px]">
           <img className="" src={url} alt="temple" />
         </div>)}
       </div>

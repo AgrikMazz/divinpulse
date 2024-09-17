@@ -5,6 +5,7 @@ import ModelCard2 from "@/app/components/ModelCard2";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
 import { Product } from "@/types/types";
+import Script from "next/script";
 import { useState } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
 
@@ -83,14 +84,14 @@ const CartPageClient = () => {
 
     return (
         <div className="">
-            <script src="https://checkout.razorpay.com/v1/checkout.js" />
+            <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             <div className="m-4">
                 <p className="text-2xl font-semibold">Your Cart</p>
             </div>
             <div className="flex items-center justify-center">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2">
                     {cart && !loading && cart.items.map((product: Product) => (
-                        <div className="ml-4">
+                        <div key={product.id} className="ml-4">
                             <ModelCard key={product.id} product={product} />
                         </div>
                     ))}

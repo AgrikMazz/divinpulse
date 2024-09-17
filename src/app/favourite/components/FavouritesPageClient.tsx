@@ -40,7 +40,7 @@ const FavouritePageClient= () => {
             <div className="flex items-center justify-center">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2">
                     {fav && !loading && fav.items.map((product: Product) => (
-                        <div className="ml-4">
+                        <div key={product.id} className="ml-4">
                             <ModelCard key={product.id} product={product} />
                         </div>
                     ))}

@@ -21,10 +21,10 @@ const Footer = () => {
                 </div>
                 <div className="flex items-center justify-center w-full">
                     <div className="flex max-w-5xl mb-6 items-start justify-between w-full gap-4">
-                        {footer_data.map((data) => <div>
+                        {footer_data.map((data) => <div key={data.title}>
                             <div className="text-white flex flex-col font-semibold text-lg mt-2 mb-2 gap-y-2">{data.title}</div>
                             {data.content.map((content) =>
-                                <div className="py-2">
+                                <div key={content.link} className="py-2">
                                     <Link href={content.link} className="text-gray-300 hover:text-white font-light text-sm hover:underline">{content.name}</Link>
                                 </div>)}
                         </div>)}

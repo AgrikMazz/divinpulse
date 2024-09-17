@@ -31,7 +31,7 @@ const SearchPageClient = () => {
         <div className="flex items-center justify-center">
             <div className=" max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                 {products && !loading && products.map((product: Product) => (
-                    <div className="ml-4">
+                    <div key={product.id} className="ml-4">
                         <ModelCard key={product.id} product={product} />
                     </div>
                 ))}
