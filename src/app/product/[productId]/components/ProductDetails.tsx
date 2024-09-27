@@ -7,7 +7,15 @@ import { FaHeart } from "react-icons/fa";
 import ProductCollapsible from "./ProductCollapsibles";
 import useImageModal from "@/hooks/useImageModal";
 import Link from "next/link";
-import { Store } from "lucide-react";
+import { Heart, ShoppingCart, Store } from "lucide-react";
+import useCart from "@/hooks/useCart";
+import useFavourite from "@/hooks/useFavourite";
+import { useAuth } from "@clerk/nextjs";
+import { useState } from "react";
+import { rateLimiter } from "@/lib/rateLimiter";
+import toast from "react-hot-toast";
+import { cn } from "@/lib/utils";
+import FadeLoader from "react-spinners/FadeLoader";
 
 interface ProductDetailsProps {
     product: Product
@@ -15,6 +23,45 @@ interface ProductDetailsProps {
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
     const ImageModal = useImageModal();
+    const { userId } = useAuth();
+    const cart = useCart();
+    const fav = useFavourite();
+    const isFavourite = fav.checkItem(product.id);
+    const isInCart = cart.checkItem(product.id);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const onClickFav = () => {
+        if (userId) {
+            if(rateLimiter(product.id.toString()+"fav")) {
+                    setIsLoading(true);
+                    if (isFavourite) {
+                        fav.removeItem(product.id);
+                    } else {
+                        fav.addItem(product);
+                    }
+                setIsLoading(false);
+            } else {
+                toast.error("Rate limit exceeded.");
+            }
+        }
+    }
+
+    const onClickCart = () => {
+        if (userId) {
+            if(rateLimiter(product.id.toString()+"cart")) {
+                    setIsLoading(true);
+                    if (isInCart) {
+                        cart.removeItem(product.id);
+                    } else {
+                        cart.addItem(product);
+                    }
+                setIsLoading(false);
+            } else {
+                toast.error("Rate limit exceeded.");
+            }
+        }
+    }
+
     return (
         <div className="">
             <div className="text-2xl font-bold text-green-700 my-2">Rs. {product.price}</div>
@@ -34,10 +81,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product }) => {
                 </div>
             </div>
             <div className="mt-6">
-                <button className="border border-black text-sm font-semibold w-full rounded-full py-3 hover:bg-slate-100 hover:scale-105 transition">Add to cart</button>
+                <button onClick={onClickCart} className="border border-black flex items-center gap-x-2 justify-center text-sm font-semibold w-full rounded-full py-3 hover:bg-slate-100 hover:scale-105 transition">
+                    {isLoading ? <FadeLoader className="w-4 h-4" /> : <ShoppingCart className={cn("w-5 h-5", {"fill-black": isInCart})} />}
+                    Add to cart
+                </button>
                 <button className="border bg-black text-white text-sm font-semibold w-full rounded-full py-3 mt-2 hover:bg-slate-800 hover:scale-105 transition">Buy now</button>
-                <button className="flex items-center justify-center text-sm font-semibold w-full rounded-full py-3 mt-2 hover:bg-slate-100 transition">
-                    <FaHeart className="text-red-600" />
+                <button onClick={onClickFav} className="flex items-center justify-center text-sm font-semibold w-full rounded-full py-3 mt-2 hover:bg-slate-100 transition">
+                    {isLoading ? <FadeLoader className="w-4 h-4" /> : <Heart onClick={onClickFav} className={cn("w-4 h-4", { "fill-red-500 text-red-500": isFavourite })} />}
                     <div className="ml-1">Add to favourites</div>
                 </button>
             </div>
