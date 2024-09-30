@@ -1,22 +1,10 @@
 import Markdown from "react-markdown";
-import fs from 'fs';
-import matter from "gray-matter";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import loadDocument from "@/app/actions/loadDocuments";
 
 const Terms = async () => {
-  const supabase = createClientComponentClient();
-  const { data: termData, error: termError } = await supabase.storage.from("documents").download("Terms.md");
-  if (termError) {
-      console.log(termError);
-      return null;
-  }
-  let Text;
-  if (termData) {
-    Text = await termData.text();
-  }
-
+  const Text = await loadDocument("Terms.md");
   return (
     <div className="flex flex-col justify-center">
       <Header />

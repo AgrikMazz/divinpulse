@@ -7,6 +7,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import qs from 'query-string';
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import loadDocument from "@/app/actions/loadDocuments";
 
 interface Props {
   params: {
@@ -15,17 +16,7 @@ interface Props {
 }
 
 const Blog: React.FC<Props> = async ( { params } ) => {
-  const supabase = createClientComponentClient();
-  const { data: termData, error: termError } = await supabase.storage.from("documents").download("blog.md");
-  if (termError) {
-      console.log(termError);
-      return null;
-  }
-  let Text;
-  if (termData) {
-    Text = await termData.text();
-  }
-
+  const blog = await loadDocument("blog.md");
   return (
     <div className="flex flex-col justify-center">
       <Header />
@@ -41,7 +32,7 @@ const Blog: React.FC<Props> = async ( { params } ) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center p-4">
-        <Markdown className="prose border p-4 flex flex-col justify-center">{Text}</Markdown>
+        <Markdown className="prose border p-4 flex flex-col justify-center">{blog}</Markdown>
       </div>
       <Footer />
     </div>
