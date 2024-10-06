@@ -24,7 +24,7 @@ const Blog: React.FC<Props> = async ( { params } ) => {
         <img className="object-cover h-full w-full overflow-hidden" src={Poster.src} alt="banner" />
       </div>
       <div className="flex flex-col items-center justify-center p-4">
-        <h1 className="text-2xl font-semibold">Explore the Spiritual Essence of India's Pilgrimage Sites</h1>
+        <h1 className="text-2xl font-semibold">Explore the Spiritual Essence of Pilgrimage Sites of India</h1>
       </div>
       <div className="flex flex-col items-center justify-center my-4">
         <div className="flex flex-col justify-center max-w-[800px]">

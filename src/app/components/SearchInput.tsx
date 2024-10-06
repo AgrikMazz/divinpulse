@@ -13,7 +13,7 @@ const SearchInput = () => {
     const searchOption = useSearch((state) => state.searchOption);
     const setSearchOption = useSearch((state) => state.setSearchOption);
     
-    if (window.location.pathname === "/search/store") {
+    if (globalThis.window?.location.pathname === "/search/store") {
         setSearchOption('Store');
     } else {
         setSearchOption('Product');
@@ -21,12 +21,12 @@ const SearchInput = () => {
 
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSearchOption(event.target.value);
-        if (window?.location.pathname !== "/search" && event.target.value === 'Product') {
+        if (globalThis.window?.location.pathname !== "/search" && event.target.value === 'Product') {
             setSearchOption('Product');
-            window?.location.replace("/search");            
-        } else if (window?.location.pathname !== "/search/store" && event.target.value === 'Store') {
+            globalThis.window?.location.replace("/search");            
+        } else if (globalThis.window?.location.pathname !== "/search/store" && event.target.value === 'Store') {
             setSearchOption('Store');
-            window?.location.replace("/search/store");
+            globalThis.window?.location.replace("/search/store");
         }
     };
 
