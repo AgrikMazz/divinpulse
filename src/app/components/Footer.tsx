@@ -36,7 +36,6 @@ const Footer = () => {
                 <div>
                     <h1 className="text-3xl text-white font-semibold font-serif">Divine Pulse</h1>
                     <p className="text-slate-400 text-sm font-light">© 2024 DIVIN PULSE. All Rights Reserved.</p>
-                    <Link href="/policies/terms" className="text-slate-400 text-sm font-light hover:underline hover:text-slate-200">Terms</Link>
                 </div>
                 <div>
                     <DropdownMenu>
@@ -51,6 +50,12 @@ const Footer = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
+            </div>
+            <div className="flex flex-row justify-between items-center p-2 gap-x-4 max-w-5xl">
+                <Link href="/policies/terms-and-conditions" className="text-slate-400 text-sm font-light hover:underline hover:text-slate-200">Terms and Conditions</Link>
+                <Link href="/policies/privacy-policy" className="text-slate-400 text-sm font-light hover:underline hover:text-slate-200">Privacy Policy</Link>
+                <Link href="/policies/shipping-and-delivery" className="text-slate-400 text-sm font-light hover:underline hover:text-slate-200">Shipping and Delivery</Link>
+                <Link href="/policies/cancellation-and-refund" className="text-slate-400 text-sm font-light hover:underline hover:text-slate-200">Cancellation and Refund</Link>
             </div>
         </div>
     );

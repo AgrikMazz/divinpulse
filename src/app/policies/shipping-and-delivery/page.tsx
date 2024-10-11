@@ -3,8 +3,8 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import loadDocument from "@/app/actions/loadDocuments";
 
-const Terms = async () => {
-  const Text = await loadDocument("Terms.md");
+const Shipping_And_Delivery = async () => {
+  const Text = await loadDocument("shipping-and-delivery.md");
   return (
     <div className="flex flex-col justify-center">
       <Header />
@@ -16,4 +16,4 @@ const Terms = async () => {
   );
 }
  
-export default Terms;
+export default Shipping_And_Delivery;
