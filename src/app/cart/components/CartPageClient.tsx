@@ -1,18 +1,58 @@
 "use client";
 
 import ModelCard from "@/app/components/ModelCard";
-import ModelCard2 from "@/app/components/ModelCard2";
 import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/useCart";
 import { Product } from "@/types/types";
 import Script from "next/script";
+import Razorpay from "razorpay";
 import { useState } from "react";
 import BeatLoader from "react-spinners/BeatLoader";
+
+const razorpay = new Razorpay({
+    key_id: "rzp_test_cDoY1b6OR9weVU",
+    key_secret: "WruHGYoGp6NeQzZsoJK4vAtU",
+});
 
 const CartPageClient = () => {
     const cart = useCart();
     const amount = cart.items.reduce((acc, item) => acc + item.price, 0);
     const [loading, setLoading] = useState(false);
+
+    async function generateInvoice() {
+        try {
+            const options = {
+                "type": 'invoice',
+                "customer": {
+                    "name": "Agrik",
+                },
+                "line_items": [
+                    {
+                        "name": "Purchase",
+                        "description": "Product description",
+                        "amount": 500,
+                        "currency": "INR",
+                        "quantity": 1,
+                    },
+                ]
+            };
+
+            const response = await fetch('/api/generate-invoice', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(options),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+          
+        } catch (error) {
+          console.error('Error generating invoice:', error);
+        }
+    }
 
     const createOrderId = async () => {
         try {
@@ -29,11 +69,9 @@ const CartPageClient = () => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-      
-            const data = await response.json();
-            console.log(data);
-            return data.orderId;
 
+            const data = await response.json();
+            return data.orderId;
         } catch (error) {
             console.error('There was a problem with your fetch operation:', error);
         }
@@ -63,7 +101,10 @@ const CartPageClient = () => {
                 });
                 
                 const res = await result.json();
-                if (res.isOk) alert("payment succeed");
+                if (res.isOk) {
+                    alert("payment succeed");
+                    generateInvoice();
+                }
                 else {
                     alert(res.message);
                 }
