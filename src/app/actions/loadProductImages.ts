@@ -3,7 +3,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const loadProductImages = (product: Product) => {
     const supabase = createClientComponentClient();
-    console.log(product);
+    //console.log(product);
     let publicUrls: string[] = [];
     {product && product.imageUrl.map((url) => {
         const {data: imageData } = supabase.storage.from("product-images").getPublicUrl(url);

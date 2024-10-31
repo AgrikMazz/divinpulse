@@ -10,7 +10,7 @@ const getAllProducts = async () => {
         return null;
     }
     
-    console.log(productData);
+    //console.log(productData);
     return productData as Product[];
 }
  

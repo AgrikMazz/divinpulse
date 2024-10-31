@@ -12,7 +12,7 @@ const getStoresBySearch = async (query: string) => {
         console.log(storeError);
         return null;
     }
-    console.log(storeData);
+    //console.log(storeData);
 
     if (storeData.length === 0) {
         const allStoresData = getAllStores();

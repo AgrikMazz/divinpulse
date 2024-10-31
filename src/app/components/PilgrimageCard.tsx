@@ -23,7 +23,7 @@ const PilgrimageCard: React.FC<Props> = ({
                 <div className="flex flex-col items-start justify-between">
                     <h2 className="text-lg">{store.name}</h2>
                     <div className="flex text-sm items-center text-gray-600 justify-between">
-                        {location ?
+                        {store.city ?
                         <div>
                             <MapPin className="inline-block w-4 h-4" />
                             {store.city}

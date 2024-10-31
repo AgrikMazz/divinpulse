@@ -14,7 +14,7 @@ const TopPicks = async ({}) => {
             }
         }
     });
-    console.log(products);
+    //console.log(products);
 
     return (
         <div className="flex flex-col bg-gray-200 items-center py-8">

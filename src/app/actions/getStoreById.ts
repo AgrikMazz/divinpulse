@@ -10,7 +10,7 @@ const getStoreById = async (id: string) => {
         return null;
     }
 
-    console.log(storeData);
+    //console.log(storeData);
 
     return storeData as Store;
 }

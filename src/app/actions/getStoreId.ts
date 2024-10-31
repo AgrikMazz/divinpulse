@@ -12,7 +12,7 @@ const getStoreId = async (
     }
 
     const storeId = data?.id;
-    console.log(typeof(storeId));
+    //console.log(typeof(storeId));
     return storeId;
 }
  

@@ -8,7 +8,7 @@ const getAllStores = async () => {
         console.log(storeError);
         return null;
     }
-    console.log(storeData);
+    //console.log(storeData);
 
     return storeData as Store[];
 }
