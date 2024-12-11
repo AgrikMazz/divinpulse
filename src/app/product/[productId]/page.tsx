@@ -6,6 +6,8 @@ import ProductPageClient from "./components/ProductPageClient";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import getProductsByCategory from "@/app/actions/getProductsByCategory";
+import getStoreById from "@/app/actions/getStoreById";
+import getProductsByStore from "@/app/actions/getProductsByStore";
 
 interface ProductPageProps {
     params : {
@@ -22,12 +24,14 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
         return null;
     }
     const product: Product = productData[0];
+
+    const store = await getStoreById(product.store_id);
+
     const categories: number[] = product.categories.path.split('/').map((category) => +category);
     const similarCatProducts = await getProductsByCategory(categories);
-    console.log(similarCatProducts)
+    const sameStoreProdcuts = await getProductsByStore(product.store_id);
 
     const publicUrls = loadProductImages(product);
-    console.log(product)
 
     const imageInfo = {
         id: product?.id,
@@ -38,7 +42,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
         <div className="flex flex-col min-h-screen">
             <Header />
             <div className="flex items-center justify-center mt-4">
-                <ProductPageClient product={product} imageInfo={imageInfo} similarCategoryProducts={similarCatProducts} />
+                {store && <ProductPageClient product={product} imageInfo={imageInfo} similarCategoryProducts={similarCatProducts} sameStoreProdcts={sameStoreProdcuts} store={store} />}
             </div>
             <div className="mt-auto">
                 <Footer />

@@ -52,7 +52,7 @@ const ModelCard: React.FC<Props> = ({ product }) => {
                     if (isInCart) {
                         cart.removeItem(product.id);
                     } else {
-                        cart.addItem(product);
+                        cart.addItem({product: product, quantity: 1});
                     }
                 setIsLoading(false);
             } else {

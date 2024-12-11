@@ -20,18 +20,18 @@ const generatedSignature = (
 
 
 export async function POST(request: NextRequest) {
- const { orderCreationId, razorpayPaymentId, razorpaySignature } =
-  await request.json();
+    const { orderCreationId, razorpayPaymentId, razorpaySignature } =
+    await request.json();
 
- const signature = generatedSignature(orderCreationId, razorpayPaymentId);
- if (signature !== razorpaySignature) {
-  return NextResponse.json(
-   { message: 'payment verification failed', isOk: false },
-   { status: 400 }
-  );
- }
- return NextResponse.json(
-  { message: 'payment verified successfully', isOk: true },
-  { status: 200 }
- );
+    const signature = generatedSignature(orderCreationId, razorpayPaymentId);
+    if (signature !== razorpaySignature) {
+        return NextResponse.json(
+            { message: 'payment verification failed', isOk: false },
+            { status: 400 }
+        );
+    }
+    return NextResponse.json(
+        { message: 'payment verified successfully', isOk: true },
+        { status: 200 }
+    );
 }

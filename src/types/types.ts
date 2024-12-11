@@ -23,9 +23,14 @@ export interface Product {
     number_of_ratings: number;
     number_of_reviews: number;
     total_sold: number;
+    length: number;
+    breadth: number;
+    height: number;
+    weight: number;
     stores: {
         id: number;
-        name: string
+        name: string;
+        shiprocketPickup: string
     };
     categories: {
         id: number;
@@ -34,7 +39,7 @@ export interface Product {
 }
 
 export interface Store {
-    id: string;
+    id: number;
     name: string;
     userId: string;
     label: string;
@@ -49,6 +54,8 @@ export interface Store {
     postalCode: number;
     storeImageUrls: string[];
     storeAbout: string;
+    razorpayId: string;
+    shiprocketPickup: string;
 }
 
 export interface Category {
@@ -69,4 +76,9 @@ export interface Review {
     review: string,
     username: string,
     created_at: string
+}
+
+export interface Quantity {
+    product: Product,
+    quantity: number
 }

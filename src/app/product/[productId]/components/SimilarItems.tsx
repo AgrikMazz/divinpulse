@@ -5,10 +5,11 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Product } from "@/types/types";
 
 interface Props {
-    similarCategoryProducts: Product[] | null
+    similarCategoryProducts: Product[] | null,
+    sameStoreProducts: Product[] | null
 }
 
-const SimilarItems: React.FC<Props> = ({ similarCategoryProducts }) => {
+const SimilarItems: React.FC<Props> = ({ similarCategoryProducts, sameStoreProducts }) => {
     return (
         <div>
             <div>
@@ -29,7 +30,7 @@ const SimilarItems: React.FC<Props> = ({ similarCategoryProducts }) => {
                 <h1 className="text-xl font-semibold mx-4 mt-4">More items from this store</h1>
                 <Carousel>
                     <CarouselContent className="m-4 border">
-                        {similarCategoryProducts?.map((product) => (
+                        {sameStoreProducts?.map((product) => (
                             <CarouselItem key={product.id} className="basis-1/2 md:basis-1/3 lg:basis-1/4">
                                 <ModelCard product={product} />
                             </CarouselItem>
