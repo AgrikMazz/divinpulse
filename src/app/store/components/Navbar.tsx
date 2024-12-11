@@ -20,7 +20,7 @@ const Navbar: React.FC<NavbarProps> = async ({ storeId }) => {
     }
 
     const { data: storeData, error: storeError } = await supabase.from("stores").select().eq("userId", userId);
-    const activeStore = await getStoreById(storeId);    
+    const activeStore = await getStoreById(Number(storeId));    
 
     return (
         <div>
