@@ -281,11 +281,11 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
             const SRorderResJson = await createOrderSR(SROrderOptions);
             ShiprocketOrder.push(SRorderResJson);
             const Shipment_Id = SRorderResJson.shipment_id;
-            const SRawbResJson = await generateAwbSR(Shipment_Id);
-            ShiprocketAwb.push(SRawbResJson);
-            const SRpickupResJson = await generatePickupSR(Shipment_Id);
-            ShiprocketPickup.push(SRpickupResJson);
-            await new Promise(r => setTimeout(r, 3000));
+            //const SRawbResJson = await generateAwbSR(Shipment_Id);
+            //ShiprocketAwb.push(SRawbResJson);
+            //const SRpickupResJson = await generatePickupSR(Shipment_Id);
+            //ShiprocketPickup.push(SRpickupResJson);
+            //await new Promise(r => setTimeout(r, 3000));
         }
         console.log(ShipRocketOrderIds, ShiprocketData, ShiprocketOrder);
         return { ShipRocketOrderIds, ShiprocketData, ShiprocketOrder, ShiprocketAwb, ShiprocketPickup };
