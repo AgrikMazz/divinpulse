@@ -69,9 +69,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, store }) => {
     }
 
     const onClickServicibility = async (product: Product) => {
-        const SR_Token = await getToken();
-        if(SR_Token) {
-            const resJson = await checkServicibility(pin, store.postalCode, String(product.weight), SR_Token);
+            const resJson = await checkServicibility(Number(pin), store.postalCode, product.weight);
             if (resJson.status == 404) console.log(resJson.message);
             if (resJson.status == 200 && resJson.data.available_courier_companies.length > 0) {
                 console.log(resJson.data.available_courier_companies.length);
@@ -79,7 +77,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, store }) => {
                 setIsServicable(true);
             }
             console.log(resJson);
-        }
     }
 
     return (

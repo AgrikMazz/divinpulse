@@ -41,7 +41,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />
-            <div className="flex items-center justify-center mt-4">
+            <div className="flex items-center justify-center m-4 w-full border overflow-hidden">
                 {store && <ProductPageClient product={product} imageInfo={imageInfo} similarCategoryProducts={similarCatProducts} sameStoreProdcts={sameStoreProdcuts} store={store} />}
             </div>
             <div className="mt-auto">

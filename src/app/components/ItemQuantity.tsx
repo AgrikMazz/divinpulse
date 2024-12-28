@@ -39,9 +39,9 @@ const ItemQuantityBox: React.FC<ItemQuantityProps> = ({ item }) => {
     };
   
     return (
-      <div className="flex items-center">
+      <div className="flex items-center rounded-md">
         <button
-          className="bg-gray-300 hover:bg-gray-400 cursor-pointer w-8 h-8 flex items-center justify-center disabled:opacity-50"
+          className="bg-gray-300 hover:bg-gray-400 cursor-pointer w-8 h-8 flex items-center justify-center disabled:opacity-50 transition"
           onClick={decrementQuantity}
           disabled={parseInt(inputValue, 10) <= 1}
         >-</button>
@@ -56,7 +56,7 @@ const ItemQuantityBox: React.FC<ItemQuantityProps> = ({ item }) => {
           }}
         />
         <button
-          className="bg-gray-300 hover:bg-gray-400 cursor-pointer w-8 h-8 flex items-center justify-center"
+          className="bg-gray-300 hover:bg-gray-400 cursor-pointer w-8 h-8 flex items-center justify-center transition"
           onClick={incrementQuantity}
         >+</button>
       </div>

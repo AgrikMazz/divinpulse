@@ -30,7 +30,8 @@ export interface Product {
     stores: {
         id: number;
         name: string;
-        shiprocketPickup: string
+        shiprocketPickup: string;
+        postalCode: number;
     };
     categories: {
         id: number;

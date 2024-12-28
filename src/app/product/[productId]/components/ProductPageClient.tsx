@@ -15,7 +15,7 @@ interface ProductPageClientProps {
 const ProductPageClient: React.FC<ProductPageClientProps> = ({ product, store, imageInfo, similarCategoryProducts, sameStoreProdcts }) => {
 
     return (
-        <div className="p-4">
+        <div className="p-4 w-fit">
             <div className="flex items-start justify-center max-w-7xl">
                 <div className=" gap-x-4">
                     <Gallery imageInfo={imageInfo} />

@@ -1,14 +1,18 @@
 "use client";
 
 import getStoreById from "@/app/actions/getStoreById";
+import { checkServicibility } from "@/app/actions/getToken";
 import { addShiprocketAwb, addShiprocketData, addShipRocketInvoice, addShipRocketOrder, addShiprocketPickup } from "@/app/actions/orders";
 import { createOrderSR, generateAwbSR, generateInvoicesSR, generatePickupSR } from "@/app/actions/processShiprocket";
 import ItemQuantityBox from "@/app/components/ItemQuantity";
 import ModelCard from "@/app/components/ModelCard";
+import ModelCard2 from "@/app/components/ModelCard2";
+import OrderTable from "@/app/components/OrderTable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useCart from "@/hooks/useCart";
 import { Product, Quantity, Store } from "@/types/types";
+import { Loader } from "lucide-react";
 import Script from "next/script";
 import Razorpay from "razorpay";
 import { useEffect, useState } from "react";
@@ -65,7 +69,9 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
     const [storeArray, setStoreArray] = useState<Store[]>([]);
     const [storeDetails, setStoreDetails] = useState<Record<string, { totalPrice: number; razorpayId: string | null; storeId: number }>>({});
     const [storeTotalsArray, setStoreTotalsArray] = useState<{ totalPrice: number; razorpayId: string | null; storeId: number }[]>([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [shippingFee, setShippingFee] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(totAmount);
 
     const [bFirstName, setBFirstName] = useState(first_name || "");
     const [bLastName, setBLastName] = useState(last_name || "");
@@ -155,6 +161,26 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
         return orderItems;
     }
 
+    const calcShipping = async () => {
+        let totalShipping: number = 0;
+        for (const store of storeArray) {
+            const storeTotalWeight = cart.items.filter((item) => item.product.store_id === store.id).reduce((total, item) => total + item.product.weight * item.quantity, 0);
+            console.log(storeTotalWeight);
+            const servicibilityRes = await checkServicibility(store.postalCode, Number(shippingPincode), storeTotalWeight);            
+            if (servicibilityRes.status == 404) console.log(servicibilityRes.message);
+            if (servicibilityRes.status == 200 && servicibilityRes.data.available_courier_companies.length > 0) {
+                totalShipping += servicibilityRes.data.available_courier_companies[0].rate;
+            }
+        }
+        return totalShipping;
+    }
+
+    const onCalculateShipping = async () => {
+        const shipping = await calcShipping();
+        setShippingFee(shipping);
+        setTotalAmount(shipping + totAmount);
+    }
+
     useEffect(() => {
         const calculateStoreTotals = async () => {
             const storeTotals: Record<string, { totalPrice: number; razorpayId: string | null; storeId: number }> = {};
@@ -189,7 +215,19 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
             setStoreArray(Array.from(storeMap.values())); // Convert Map back to array
           };
           makeStoreArray();
+          const totalWeight = itemsQty.reduce((total, item) => total + item.product.weight * item.quantity, 0);
+          setLoading(false);
     }, []);
+
+    useEffect(() => {
+        const CalcShipping = async () => {
+            const shippingCost = 0;
+            for (const store of storeArray) {
+                const totalWeight = itemsQty.reduce((total, item) => total + item.product.weight * item.quantity, 0);
+                //const servicibilityRes = await checkServicibility(store.postalCode, );
+            }
+        };
+    }, [storeArray]);
 
     const createOrderId = async () => {
         try {
@@ -201,7 +239,7 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                 body: JSON.stringify({
                     user: userId,
                     storeIds: Array.from(storeIds),
-                    amount: totAmount,
+                    amount: totAmount + shippingFee,
                     currency: 'INR',
                     vendors: storeTotalsArray
                 }),
@@ -345,10 +383,13 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
 
     return (
         <div className="">
+            {loading && <div className="m-4 flex items-center justify-center"><Loader /></div>}
+            {!loading && <div>
             <Script src="https://checkout.razorpay.com/v1/checkout.js" />
             <div className="m-4">
                 <p className="text-2xl font-semibold">Your Cart</p>
-                <Button onClick={() => console.log(cart.items)} className="m-4">Test</Button>
+                <input className="m-4 p-2 border border-gray-400 rounded-md" type="text" value={shippingPincode} onChange={(e) => setShippingPincode(e.target.value)} />
+                <Button onClick={() => onCalculateShipping()} className="m-4">Calculate Shipping</Button>
             </div>
             <div className="flex items-center justify-center">
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-2">
@@ -418,7 +459,9 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                     </div>
                 </div>
             }
+            <OrderTable items={cart.items} shippingFee={shippingFee} />
             <Button onClick={processPayment} className="m-4">Proceed to payment</Button>
+            </div>}
         </div>
     );
 }

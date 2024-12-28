@@ -3,18 +3,19 @@
 export const getToken = async () => {
     let valid;
     let token: string | null;
-    token = localStorage.getItem("SR_Token");
-    if (!token) valid = false;
+    //token = localStorage.getItem("SR_Token");
+    //if (!token) valid = false;
     //@ts-ignore
-    if (token) {
-        const parsedJWT = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
-        if (!parsedJWT || !parsedJWT.exp) valid = false;
-        valid = parsedJWT.exp > Date.now() / 1000;
-    }
-    if(!valid) {
+    //if (token) {
+    //    const parsedJWT = JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString());
+    //    if (!parsedJWT || !parsedJWT.exp) valid = false;
+    //    valid = parsedJWT.exp > Date.now() / 1000;
+    //}
+    //if(!valid) {
         const res = await fetch('https://apiv2.shiprocket.in/v1/external/auth/login', {
             method: 'POST',
             headers: {
+                //'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -30,14 +31,15 @@ export const getToken = async () => {
         token = data.token;
         token && localStorage.setItem('SR_Token', token);
         valid = true;
-    }
+    //}
     console.log(token);
     return token;
 };
 
 
 // Middleware for refreshing the token if expired
-export const checkServicibility = async (pickup_postcode: string, delivery_postcode: number, weight: string, token: string) => {
+export const checkServicibility = async (pickup_postcode: number, delivery_postcode: number, weight: number) => {
+    const token = await getToken();
     const url = new URL("https://apiv2.shiprocket.in/v1/external/courier/serviceability/");
     url.searchParams.append("pickup_postcode", pickup_postcode.toString());
     url.searchParams.append("delivery_postcode", delivery_postcode.toString());
