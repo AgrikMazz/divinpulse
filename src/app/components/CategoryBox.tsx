@@ -60,15 +60,6 @@ const CategoryBox = () => {
     return (
         <div className="flex items-center justify-between gap-x-1">
           <div>
-            <TbWorld size={40} onClick={() =>{
-                if(window.location.href !== "/"){
-                  window.location.href = `/`
-                }
-              }}
-              className="hover:cursor-pointer hover:scale-105 transition"
-            />
-          </div>
-          <div>
               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
                       <Button variant={"ghost"} className="h-8 w-full flex p-2">

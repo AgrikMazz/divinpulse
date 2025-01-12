@@ -63,7 +63,7 @@ const ModelCard: React.FC<Props> = ({ product }) => {
 
     return (
         
-            <div className="bg-white overflow-hidden flex flex-col rounded-lg m-4 p-2 max-w-full transition hover:shadow-lg">
+            <div className="overflow-hidden flex flex-col rounded-lg m-4 p-2 max-w-full transition hover:shadow-lg">
                 <div className="relative">
                     <div className="aspect-square bg-gray-100 rounded-md transition hover:shadow-lg cursor-pointer">
                         <Link href={`/product/${product.id}`}>
@@ -82,10 +82,10 @@ const ModelCard: React.FC<Props> = ({ product }) => {
                         </Button>
                     </div>
                 </div>
-                <div className="flex flex-col items-start justify-between">
-                    <h2 className="text-md">{product.name}</h2>
+                <div className="flex flex-col items-start justify-between mt-1">
+                    <h2 className="text-md font-serif">{product.name}</h2>
                     <div className="font-bold justify-between">Rs. {product.price}</div>
-                    <div className="text-sm text-gray-600"><ShoppingBag className="inline-block w-4 h-4" /> {product.stores.name}</div>
+                    <div className="text-sm text-gray-600"><ShoppingBag className="inline-block w-4 h-4" /> {product?.stores?.name}</div>
                 </div>
             </div>
     );

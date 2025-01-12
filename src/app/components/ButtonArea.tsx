@@ -7,6 +7,7 @@ import useStoreModal from "@/hooks/useStoreModal";
 import { Heart, ShoppingCart } from "lucide-react";
 import useCart from "@/hooks/useCart";
 import useFavourite from "@/hooks/useFavourite";
+import CategoryBox from "./CategoryBox";
 
 const ButtonArea = (values: {storeId: string, isSeller: boolean}) => {
     const { isLoaded, userId } = useAuth();
@@ -16,7 +17,8 @@ const ButtonArea = (values: {storeId: string, isSeller: boolean}) => {
     const fav = useFavourite();
 
     return (
-        <div>
+        <div className="flex">
+            <CategoryBox />
             {isLoaded && userId ? (
                 <div className="flex justify-end">
                     <Button variant={"ghost"} className="hover:bg-gray-100 mr-2" size={"sm"} onClick={() => router.push(`/cart`)}>
@@ -37,8 +39,7 @@ const ButtonArea = (values: {storeId: string, isSeller: boolean}) => {
             ) : (
                 <div className="flex flex-col items-end mr-2">
                     <div>
-                        <Button size={"sm"} className=" bg-yellow-300 hover:bg-yellow-400 w-fit transition text-black font-semibold" onClick={() => router.push("/sign-up")}>Register</Button>
-                        <Button size={"sm"} variant={"ghost"} className="hover:underline hover:bg-transparent" onClick={() => router.push("/sign-in")}>Login</Button>
+                        <Button size={"sm"} className="bg-[#565694] hover:bg-violet-900 w-fit transition text-white rounded-full font-semibold" onClick={() => router.push("/sign-in")}>Sign in</Button>
                     </div>
                 </div>
             )}

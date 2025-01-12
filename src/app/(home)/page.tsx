@@ -11,7 +11,7 @@ export default async function Home() {
   const stores = await getAllStores();
 
   return (
-    <main className="h-full w-full bg-gray-200 items-center justify-between">
+    <main className="h-full w-full items-center justify-between">
       <div className="flex flex-col min-h-screen">
         <div className="flex-grow">
           <Header />

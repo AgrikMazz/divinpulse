@@ -6,7 +6,8 @@ html,
 body,
 :root {
   height: 100%;
-  background-color: white;
+  background-color: #F7FCFF;
+  /*@apply min-w-[720px] overflow-x-auto;*/
 }
 
 @layer base {

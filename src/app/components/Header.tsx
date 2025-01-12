@@ -4,6 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import CategoryBox from "./CategoryBox";
 import ButtonArea from "./ButtonArea";
 import SearchInput from "./SearchInput";
+import Link from "next/link";
 
 const Header = async () => {
     const { userId } = auth();
@@ -14,10 +15,8 @@ const Header = async () => {
     else { isSeller = true; }
 
     return (
-        <div className="flex flex-row items-center justify-center gap-x-2 p-2 border-b-2 bg-white">
-            <div>
-                <CategoryBox />
-            </div>
+        <div className="flex flex-row items-center justify-between gap-x-2 p-2 border-b-2">
+            <Link href="/" className="font-serif font-semibold text-[#565694] cursor-pointer text-3xl">Divinpulse</Link>
             <div className="flex justify-center text-3xl font-bold">
                 <SearchInput />
             </div>
