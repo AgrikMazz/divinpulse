@@ -17,6 +17,7 @@ export const getToken = async () => {
             headers: {
                 //'Access-Control-Allow-Origin': '*',
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
                 "email": "dushtuman1524@gmail.com",
@@ -48,7 +49,8 @@ export const checkServicibility = async (pickup_postcode: number, delivery_postc
     const res = await fetch(url, {
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            "Authorization": `Bearer ${token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         method: "GET"
     });

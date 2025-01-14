@@ -7,7 +7,8 @@ export const createOrderSR = async (order: any) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SR_Token}`
+            'Authorization': `Bearer ${SR_Token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify(order)
     });
@@ -23,7 +24,8 @@ export const generateAwbSR = async (shipment_id: string) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SR_Token}`
+            'Authorization': `Bearer ${SR_Token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
             shipment_id: shipment_id
@@ -40,7 +42,8 @@ export const generatePickupSR = async (shipment_id: string) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SR_Token}`
+            'Authorization': `Bearer ${SR_Token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
             shipment_id: shipment_id
@@ -57,7 +60,8 @@ export const generateManifestsSR = async (shipment_id: string[]) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SR_Token}`
+            'Authorization': `Bearer ${SR_Token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
             shipment_id: shipment_id
@@ -74,7 +78,8 @@ export const generateLabelsSR = async (shipment_id: string[]) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SR_Token}`
+            'Authorization': `Bearer ${SR_Token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
             shipment_id: shipment_id
@@ -91,7 +96,8 @@ export const generateInvoicesSR = async (shipment_id: string[]) => {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${SR_Token}`
+            'Authorization': `Bearer ${SR_Token}`,
+            'Access-Control-Allow-Origin': '*'
         },
         body: JSON.stringify({
             shipment_id: []
