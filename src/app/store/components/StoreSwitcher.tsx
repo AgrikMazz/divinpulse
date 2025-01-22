@@ -28,10 +28,10 @@ function StoreSwitcher({
         id: store.id
     }));
 
-    const currentStore = formattedStores.find((store) => store.id === params.storeId)
+    const currentStore = formattedStores.find((store) => store.id === Number(params.storeId))
     const [open, setOpen] = useState(false);
 
-    const onStoreSelect = (store: {id: string, name: string}) => {
+    const onStoreSelect = (store: {id: number, name: string}) => {
         setOpen(false);
         router.push(`/store/${store.id}`);
         router.refresh();

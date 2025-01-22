@@ -29,7 +29,7 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
     return (
         <div>
             <div>
-                {images.bannerImageUrl === null ?
+                {images.bannerImageUrl !== null ?
                     <img className="w-full" src={images.bannerImageUrl} /> :
                     <div></div>
                 }

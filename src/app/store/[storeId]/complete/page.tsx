@@ -11,7 +11,7 @@ interface Props {
 
 const CompleteStorePage: React.FC<Props> = async ({ params}) => {
     const { userId } = auth();
-    const store = await getStoreById(params.storeId);
+    const store = await getStoreById(Number(params.storeId));
     if (userId !== store?.userId) {
         redirect("/");
     }

@@ -32,7 +32,7 @@ const ButtonArea = (values: {storeId: string, isSeller: boolean}) => {
                     {values.isSeller == true ? (
                         <Button size={"sm"} variant={"ghost"} className="hover:underline hover:bg-transparent mr-2" onClick={() => router.push(`/store/${values.storeId}`)}>Store</Button>
                     ) : (
-                        <Button size={"sm"} variant={"ghost"} className="hover:underline hover:bg-transparent mr-2" onClick={StoreModal.onOpen}>Become a seller</Button>
+                        <Button size={"sm"} variant={"ghost"} className="hover:underline hover:bg-transparent mr-2" onClick={() => router.push("/store/create")}>Become a seller</Button>
                     )}
                     <UserButton />
                 </div>

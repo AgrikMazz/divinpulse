@@ -35,9 +35,9 @@ const ReviewSection: React.FC<Props> = async ({ productId }) => {
                                 id: review.id,
                                 product_id: review.product_id,
                                 user_id: review.user_id,
-                                review: review.review,
                                 rating: review.rating,
-                                name: review.username
+                                review: review.review,
+                                username: review.username
                             } as Review
                         } />
                     </div>

@@ -43,12 +43,12 @@ export async function POST(req: Request) {
     }) as WebhookEvent
   } catch (err) {
     console.error('Error verifying webhook:', err);
-    return new Response('Error occured', {
+    return new Response('Error verifying webhook', {
       status: 400
     })
   }
 
-  const data = await syncAuthData(payload.data.id, payload.data.first_name, payload.data.last_name);
+  const data = await syncAuthData(payload.data.id, payload.data.first_name, payload.data.last_name, payload.data.email_addresses[0].email_address);
   console.log(data);
 
   return new Response('', { status: 200 })

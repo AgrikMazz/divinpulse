@@ -18,11 +18,11 @@ interface ProductPageProps {
 
 const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
     const supabase = createClientComponentClient();
-    const store = await getStoreById(params.storeId);
+    const store = await getStoreById(Number(params.storeId));
     let categoryIds: number[] =[];
     if (!store) { redirect("/"); }
     const images = loadStoreImages(store);
-    const products: Product[] | null = await getProductsByStore(String(params.storeId));
+    const products: Product[] | null = await getProductsByStore(Number(params.storeId));
     
     products?.map( async (product) => {
         categoryIds.push(...product.categories.path.split('/').map((category) => +category));

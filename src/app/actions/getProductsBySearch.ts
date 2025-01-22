@@ -14,7 +14,7 @@ const getProductBySearch = async (query: string) => {
 
     if (productData.length === 0) {
         const allProductsData = getAllProducts();
-        console.log(allProductsData);
+        //console.log(allProductsData);
         return allProductsData;
     } else {
         return productData as Product[];

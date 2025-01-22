@@ -15,10 +15,10 @@ interface ProductPageProps {
 
 const StoreDashboard: React.FC<ProductPageProps> = async ({ params }) => {
     const { userId } = auth();
-    const store = await getStoreById(params.storeId);
+    const store = await getStoreById(Number(params.storeId));
     if (!store) { redirect("/"); }
     const images = loadStoreImages(store);
-    const products = await getProductsByStore(params.storeId);
+    const products = await getProductsByStore(Number(params.storeId));
     if(store.userId !== userId) { redirect("/"); }
 
     return (

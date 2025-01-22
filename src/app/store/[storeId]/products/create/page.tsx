@@ -21,7 +21,7 @@ const CreateProductPage: React.FC<CreateProductProps> = async ({ params}) => {
         console.log(categoryError);
         return;
     }
-    const store = await getStoreById(params.storeId);
+    const store = await getStoreById(Number(params.storeId));
     if (userId !== store?.userId) {
         redirect("/");
     }

@@ -10,7 +10,7 @@ export const update_isFavourite = async (userId: string, productId: number, isFa
         return null;
     }
     
-    console.log(productData);
+    //console.log(productData);
     return productData;
 }
 
@@ -23,6 +23,6 @@ export const update_isInCart = async (userId: string, productId: number, isInCar
         return null;
     }
     
-    console.log(productData);
+    //console.log(productData);
     return productData;
 }

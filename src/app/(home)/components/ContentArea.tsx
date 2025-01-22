@@ -13,6 +13,7 @@ import Sunset1 from "../../../../public/landing/Landing.jpg"
 import Sunset2 from "../../../../public/landing/Landing2.jpg"
 import { blogs, card_contents_1, card_contents_2, pilgrimages } from "@/lib/list";
 import loadStoreIcon from "@/app/actions/loadStoreIcon";
+import { useRouter } from "next/navigation";
 
 interface Props {
     products: Product[] | null,
@@ -25,10 +26,11 @@ const ContentArea: React.FC<Props> = ({
 }) => {
     let storeImages: string[] = [];
     //@ts-ignore
-    stores?.forEach(async (store) => {
+    {stores && stores.forEach(async (store) => {
         storeImages.push(loadStoreIcon(store));
-    })
-
+    })}
+    const router = useRouter();
+  
     return (
         <div>
             <div className="flex flex-col rounded-md items-center justify-center">
@@ -57,12 +59,12 @@ const ContentArea: React.FC<Props> = ({
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {products?.map((product, index) => (
-                                <div>
+                                <div key={product.id}>
                                     {index<8 && <ModelCard key={product.id} product={product} />}
                                 </div>
                             ))}
                         </div>
-                        <button className="border border-black text-sm font-semibold w-96 rounded-full p-3 mt-4 hover:bg-slate-100 hover:scale-105 transition">See more items</button>
+                        <button className="border border-black text-sm font-semibold w-96 rounded-full p-3 mt-4 hover:bg-slate-100 hover:scale-105 transition" onClick={() => router.push("/search")}>See more items</button>
                     </div>
                 </div>
                 <div className="">
@@ -82,12 +84,12 @@ const ContentArea: React.FC<Props> = ({
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                             {stores?.map((store, index) => (
-                                <div key={index}>
-                                    <PilgrimageCard name={store.name} location={store.city} image={storeImages[index]} id={store.id} />
+                                <div key={store.id}>
+                                    <PilgrimageCard key={store.id} store={store} />
                                 </div>
                             ))}
                         </div>
-                        <button className="border border-black text-sm font-semibold mt-2 w-96 rounded-full p-3 hover:bg-slate-100 hover:scale-105 transition">Explore</button>
+                        <button className="border border-black text-sm font-semibold mt-2 w-96 rounded-full p-3 hover:bg-slate-100 hover:scale-105 transition" onClick={() => router.push("/search/store")}>Explore</button>
                     </div>
                 </div>
                 {/*<div className="relative flex flex-col justify-center text-center h-[700px] w-full mb-10">

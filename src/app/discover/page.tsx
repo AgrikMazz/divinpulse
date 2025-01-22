@@ -1,11 +1,7 @@
-import Footer from "@/components/Footer";
-import ArtifactMC from "./components/ArtifactMC";
 import { Button } from "@/components/ui/button";
-import PilgrimMC from "./components/PilgrimMC";
 import PilStories from "./components/PilStories";
 import Items from "./components/Items";
-import discover from "../../../public/discover.jpg"
-import Image from "next/image";
+import Footer from "../components/Footer";
 
 const Discover = () => {
     return (

@@ -6,6 +6,8 @@ import Temple from "../../../../public/Temple.jpeg";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import qs from 'query-string';
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import loadDocument from "@/app/actions/loadDocuments";
 
 interface Props {
   params: {
@@ -13,12 +15,8 @@ interface Props {
   }
 }
 
-const Blog: React.FC<Props> = ( { params } ) => {
-  const filePath = "public\\blogs\\blog.md";
-  const content = fs.readFileSync(filePath, 'utf8');
-  const post = matter(content);
-  const parsedTitle = Object.keys(qs.parse(params.slug))[0];
-
+const Blog: React.FC<Props> = async ( { params } ) => {
+  const blog = await loadDocument("blog.md");
   return (
     <div className="flex flex-col justify-center">
       <Header />
@@ -26,7 +24,7 @@ const Blog: React.FC<Props> = ( { params } ) => {
         <img className="object-cover h-full w-full overflow-hidden" src={Poster.src} alt="banner" />
       </div>
       <div className="flex flex-col items-center justify-center p-4">
-        <h1 className="text-2xl font-semibold">{parsedTitle}</h1>
+        <h1 className="text-2xl font-semibold">Explore the Spiritual Essence of Pilgrimage Sites of India</h1>
       </div>
       <div className="flex flex-col items-center justify-center my-4">
         <div className="flex flex-col justify-center max-w-[800px]">
@@ -34,7 +32,7 @@ const Blog: React.FC<Props> = ( { params } ) => {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center p-4">
-        <Markdown className="prose border p-4 flex flex-col justify-center">{post.content}</Markdown>
+        <Markdown className="prose border p-4 flex flex-col justify-center">{blog}</Markdown>
       </div>
       <Footer />
     </div>

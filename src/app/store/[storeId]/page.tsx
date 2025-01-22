@@ -13,10 +13,10 @@ interface Props {
 }
 
 const Store: React.FC<Props> = async ({ params }) => {
-    const store = await getStoreById(params.storeId);
+    const store = await getStoreById(Number(params.storeId));
     if (!store) { redirect("/"); }
     const images = loadStoreImage(store);
-    const products = await getProductsByStore(params.storeId);
+    const products = await getProductsByStore(Number(params.storeId));
 
     return (
         <div>
