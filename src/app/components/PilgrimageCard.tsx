@@ -15,7 +15,7 @@ const PilgrimageCard: React.FC<Props> = ({
     id
 }) => {
     return (
-        <div className="bg-gray-50 overflow-hidden flex flex-col rounded-lg m-4 p-2 max-w-full transition hover:shadow-lg">
+        <div className="bg-zinc-50 overflow-hidden flex flex-col rounded-lg m-4 p-2 max-w-full transition hover:shadow-lg">
             <div className="aspect-square bg-slate-200 rounded-md transition">
                 <img
                     src={image}

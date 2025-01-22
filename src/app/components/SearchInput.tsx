@@ -26,7 +26,7 @@ const SearchInput = () => {
     }
 
     return (
-        <div className="flex flex-row z-20 items-center w-fit p-2 rounded-full text-sm bg-zinc-400">
+        <div className="flex flex-row z-20 items-center w-fit p-2 rounded-full text-sm bg-[#565694]">
             <input
                 className="rounded-full mr-2 py-2 px-2 font-normal w-full"
                 placeholder="Search for anything"

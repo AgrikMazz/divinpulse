@@ -1,6 +1,5 @@
 import { GoChevronDown } from "react-icons/go";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { footer_data } from "@/lib/list";
 import Link from "next/link";
@@ -11,9 +10,9 @@ import { FaRegCreditCard } from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <div className="w-full bg-neutral-900 p-4">
+        <div className="w-full bg-[#000060] p-4">
             <div className="flex flex-col xl:flex-row xl:px-10 xl:my-4 items-center justify-center gap-x-14 w-full">
-                <div className="flex flex-col items-center justify-center transition w-fit bg-neutral-800 hover:shadow-lg mt-6 mb-10 p-4 rounded-lg">
+                <div className="flex flex-col items-center justify-center transition w-fit border border-white hover:shadow-lg mt-6 mb-10 p-4 rounded-lg">
                     <div className="text-gray-200 font-serif font-semibold text-xl py-2 flex items-center gap-x-4"><IoShieldHalf size={30} />Safe and Secure Shopping</div>
                     <div className="text-gray-200 font-serif font-semibold text-xl py-2 flex items-center gap-x-4"><TiTickOutline size={30} />Trusted and Authentic Products</div>
                     <div className="text-gray-200 font-serif font-semibold text-xl py-2 flex items-center gap-x-4"><CiDeliveryTruck size={30} />Fast and Reliable Service</div>
@@ -37,7 +36,7 @@ const Footer = () => {
                     <h1 className="text-3xl text-white font-semibold font-serif">Divine Pulse</h1>
                     <p className="text-slate-400 text-sm font-light">© 2024 DIVIN PULSE. All Rights Reserved.</p>
                 </div>
-                <div>
+                {/*<div>
                     <DropdownMenu>
                         <DropdownMenuTrigger className="flex py-1 px-2 items-center font-semibold bg-gray-400 rounded-xl">
                             ENG
@@ -49,7 +48,7 @@ const Footer = () => {
                             <DropdownMenuItem>English</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                </div>
+                </div>*/}
             </div>
         </div>
     );

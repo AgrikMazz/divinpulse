@@ -13,7 +13,7 @@ const BlogCard: React.FC<Props> = ({
     image
 }) => {
     return (
-        <div className="bg-gray-50 overflow-hidden flex flex-col rounded-lg m-4 pb-2 max-w-full transition hover:shadow-lg">
+        <div className="bg-gray-50 overflow-hidden flex flex-col rounded-lg m-4 pb-2 w-72 transition hover:shadow-lg">
             <div className="aspect-square bg-slate-200 transition">
                 <img
                     src={image}
@@ -27,7 +27,7 @@ const BlogCard: React.FC<Props> = ({
                         <p>{description}</p>
                     </div>
                 </div>
-                <Link href={`/blog/${title}`} className="text-sm font-medium rounded-md border border-gray-500 m-2 p-2 text-center hover:bg-gray-200 transition">
+                <Link href={`/blog/${title}`} className="text-sm font-medium rounded-md border border-gray-500 mx-6 mb-2 p-2 text-center hover:bg-gray-200 transition">
                     Read more
                 </Link>
         </div>
