@@ -7,7 +7,7 @@ import { IoShieldHalf } from "react-icons/io5";
 import { TiTickOutline } from "react-icons/ti";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FaRegCreditCard } from "react-icons/fa";
-import { Instagram, Mail, Phone } from "lucide-react";
+import { Instagram, Mail, Phone, Twitter } from "lucide-react";
 
 const Footer = () => {
     return (
@@ -42,8 +42,9 @@ const Footer = () => {
                             <div className=" text-white font-light mt-2">
                                 Follow us on:
                             </div>
-                            <div className="py-2">
+                            <div className="py-2 flex flex-row gap-x-2">
                                 <Link href={"https://www.instagram.com/divinpulse/"}><Instagram className="text-white" /></Link>
+                                <Link href={"https://x.com/divinpulse?t=ukBMvgh6FCgvMCIthFgvqA&s=09"}><Twitter className="text-white" /></Link>
                             </div>
                         </div>
                     </div>

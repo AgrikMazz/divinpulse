@@ -70,7 +70,7 @@ const ContentArea: React.FC<Props> = ({
                 <div className="">
                         <div className="relative container mx-auto grid grid-cols-1 md:grid-rows-2 md:grid-cols-2 gap-x-24 gap-y-10 w-full h-full mt-6 mb-20">
                             {card_contents_1.map((content, index) => (
-                                <div>
+                                <div key={index}>
                                     <h1 className="text-2xl text-center text-[#565694] font-serif font-semibold mb-2">{content.title}</h1>
                                     <div key={index} className="bg-white opacity-80 border rounded-lg flex flex-col gap-y-3 p-3 h-32 overflow-y-hidden">
                                         <p className="text-lg">{content.content}</p>
@@ -106,7 +106,7 @@ const ContentArea: React.FC<Props> = ({
                 </div>*/}
                 <div className="mb-10 bg-[#565694]">
                     <h1 className="text-2xl font-serif font-semibold ml-4 my-8 text-center text-white">Blogs</h1>
-                    <h2 className="text-lg font-serif ml-4 my-8 text-center text-white">Read about India's rich cultural heritage</h2>
+                    <h2 className="text-lg font-serif ml-4 my-8 text-center text-white">Read about India&apos;s rich cultural heritage</h2>
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 mx-4 lg:grid-cols-4 gap-2">
                             {blogs?.map((blog, index) => (
