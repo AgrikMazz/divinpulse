@@ -64,7 +64,6 @@ const CategoryBox = () => {
                   <DropdownMenuTrigger asChild>
                       <Button variant={"ghost"} className="h-8 w-full flex p-2">
                             <LucideAlignJustify className="h-4 w-4 mr-1" />
-                            <div>Categories</div>
                       </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end" className="w-56">

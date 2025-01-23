@@ -18,7 +18,7 @@ const CardPageClient=()=>{
         <div className="m-4">
             <div className="flex flex-col">
             <div className="m-4">
-                <p className="text-2xl font-semibold">Your Cart</p>
+                <p className="text-2xl font-semibold font-serif text-[#565694]">Your Cart</p>
             </div>
                 {cart.items && cart.items.map((product) => (
                     <div key={product.product.id} className="ml-4 flex flex-col justify-between items-center">
@@ -26,7 +26,7 @@ const CardPageClient=()=>{
                     </div>
                 ))}
             </div>
-            <Button onClick={() => proceedToCheckout()} className="m-4">Proceed to checkout</Button>
+            <Button onClick={() => proceedToCheckout()} className="m-4 bg-violet-900 hover:bg-violet-950">Proceed to checkout</Button>
         </div>
     );
 }

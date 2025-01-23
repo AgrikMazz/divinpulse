@@ -62,7 +62,7 @@ const SearchPageClient = () => {
                 ))}
             </div>
             <div className="flex gap-x-2">
-                <button className="flex items-center p-2 rounded-md bg-transparent hover:bg-gray-100 text-black" onClick={() => { if(Number(page)>1) onClick(Number(page) - 1) }}><MdChevronLeft />Previous</button>
+                <button className="flex items-center p-2 rounded-full bg-transparent hover:bg-gray-100 text-black transition" onClick={() => { if(Number(page)>1) onClick(Number(page) - 1) }}><MdChevronLeft className="w-6 h-6" /></button>
                 {/*numberOfPages > 6 ? <div>
                     <button className="flex items-center p-2 rounded-md bg-transparent hover:bg-gray-100 text-black" onClick={() => onClick(Number(page))}>{page}</button>
                     <button className="flex items-center p-2 rounded-md bg-transparent hover:bg-gray-100 text-black" onClick={() => onClick(Number(page)+1)}>{Number(page)+1}</button>
@@ -71,7 +71,7 @@ const SearchPageClient = () => {
                     <button className="flex items-center p-2 rounded-md bg-transparent hover:bg-gray-100 text-black"><FaEllipsisH /></button>
                     <button className="flex items-center p-2 rounded-md bg-transparent hover:bg-gray-100 text-black" onClick={() => onClick(Number(pageSize))}>{Number(pageSize)}</button>
                 </div> : <div></div>*/}
-                <button className="flex items-center p-2 rounded-md bg-transparent hover:bg-gray-100 text-black" onClick={() => { if(Number(page)<numberOfPages) onClick(Number(page) + 1) }}>Next<MdChevronRight /></button>
+                <button className="flex items-center p-2 rounded-full bg-transparent hover:bg-gray-100 text-black transition" onClick={() => { if(Number(page)<numberOfPages) onClick(Number(page) + 1) }}><MdChevronRight className="w-6 h-6" /></button>
             </div>
             {products.length === 0 && !loading && <div className="ml-4">No products found</div>}
             {loading && <div className="ml-4 mt-8"><Beatloader /></div>}

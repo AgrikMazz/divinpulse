@@ -56,14 +56,6 @@ export const card_contents_2 = [
 
 export const footer_data = [
     {
-      title: "Help & Support",
-      content: [
-        { name: "Contact Us", link: "/" },
-        { name: "Privacy Policy", link: "/" },
-        { name: "Terms of Service", link: "/" }
-      ]
-    },
-    {
       title: "For Believers",
       content: [
         { name: "Write a Review", link: "/" },

@@ -51,7 +51,14 @@ const SearchInput = () => {
     }
 
     return (
-        <div className="flex flex-row z-20 items-center w-fit p-2 rounded-full text-sm bg-[#565694]">
+        <div className="flex flex-row z-20 items-center w-fit p-2 rounded-full text-sm bg-[#565694] gap-x-3">
+            <div className="">
+                <select value={searchOption} className="rounded-full p-2 cursor-pointer" onChange={handleChange}>
+                    {/*<option value="" className="hidden">Search</option>*/}
+                    <option value="Product">Product</option>
+                    <option value="Store">Store</option>
+                </select>
+            </div>
             <input
                 className="rounded-full py-2 px-2 font-normal w-full"
                 placeholder="Search for anything"
@@ -66,13 +73,6 @@ const SearchInput = () => {
                 <button className="p-2" onClick={() => onSearch(inp)}>
                     <FaSearch className="w-5 h-5 text-gray-500" />
                 </button>
-            </div>
-            <div className="">
-                <select value={searchOption} className="rounded-full p-2 cursor-pointer" onChange={handleChange}>
-                    {/*<option value="" className="hidden">Search</option>*/}
-                    <option value="Product">Product</option>
-                    <option value="Store">Store</option>
-                </select>
             </div>
         </div>
     );

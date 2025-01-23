@@ -7,6 +7,7 @@ import { IoShieldHalf } from "react-icons/io5";
 import { TiTickOutline } from "react-icons/ti";
 import { CiDeliveryTruck } from "react-icons/ci";
 import { FaRegCreditCard } from "react-icons/fa";
+import { Instagram, Mail, Phone } from "lucide-react";
 
 const Footer = () => {
     return (
@@ -25,8 +26,26 @@ const Footer = () => {
                             {data.content.map((content) =>
                                 <div key={content.link} className="py-2">
                                     <Link href={content.link} className="text-gray-300 hover:text-white font-light text-sm hover:underline">{content.name}</Link>
-                                </div>)}
+                                </div>)
+                            }
                         </div>)}
+                        <div className="flex flex-col">
+                            <div className="text-white flex flex-col font-semibold text-lg mt-2 mb-2 gap-y-2">Contact us:</div>
+                            <div className="py-2 flex items-scenter gap-x-2">
+                                <Phone className="text-white" />
+                                <p className="text-gray-300 font-semibold text-sm">+91 74395 41004</p>
+                            </div>
+                            <div className="py-2 flex items-scenter gap-x-2">
+                                <Mail className="text-white" />
+                                <p className="text-gray-300 font-semibold text-sm hover:underline">divinpulse@gmail.com</p>
+                            </div>
+                            <div className=" text-white font-light mt-2">
+                                Follow us on:
+                            </div>
+                            <div className="py-2">
+                                <Link href={"https://www.instagram.com/divinpulse/"}><Instagram className="text-white" /></Link>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
