@@ -3,8 +3,8 @@ import { auth } from "@clerk/nextjs/server";
 import ButtonArea from "./ButtonArea";
 import SearchInput from "./SearchInput";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import CategoryBox from "./CategoryBox";
+import Divinpulse from "../../../public/Divinpulse.png";
 
 const Header = async () => {
     const { userId } = auth();
@@ -15,11 +15,14 @@ const Header = async () => {
     else { isSeller = true; }
 
     return (
-        <div className="flex flex-wrap items-center justify-between gap-y-4 p-2 border-b-2">
+        <div className="flex flex-wrap items-center justify-between gap-y-1 p-2 border-b-2">
             <div className="flex items-center mr-2">
                 <CategoryBox />
-                <Link href="/" className="font-serif font-semibold text-[#565694] cursor-pointer text-3xl">
+                <Link href="/" className="hidden sm:block font-serif font-semibold text-[#565694] cursor-pointer text-2xl">
                     Divinpulse
+                </Link>
+                <Link href="/" className="sm:hidden font-serif font-semibold text-[#565694] cursor-pointer text-2xl h-12 w-12">
+                    <img src={Divinpulse.src} alt="Divinpulse" className="object-contain aspect-square" />
                 </Link>
             </div>
             <div className="w-full md:w-auto md:flex-1 text-3xl font-bold flex justify-center order-2 md:order-1">

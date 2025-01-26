@@ -14,6 +14,7 @@ import Sunset2 from "../../../../public/landing/Landing2.jpg"
 import { blogs, card_contents_1, card_contents_2, pilgrimages } from "@/lib/list";
 import loadStoreIcon from "@/app/actions/loadStoreIcon";
 import { useRouter } from "next/navigation";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 interface Props {
     products: Product[] | null,
@@ -35,26 +36,29 @@ const ContentArea: React.FC<Props> = ({
         <div>
             <div className="flex flex-col rounded-md items-center justify-center">
                 <div className="mb-10">
-                    <div className="flex flex-col justify-center max-w-7xl mt-8 mx-4">
-                        <div className="flex p-4 my-4 gap-x-4">
-                            <div className="">
-                                <img className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg" src={Sunset1.src} alt="banner" />
+                    <ScrollArea>
+                        <div className="flex flex-col justify-center max-w-7xl mt-8 mx-4">
+                            <div className="flex p-4 my-4 gap-x-4">
+                                <div className="">
+                                    <img className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg" src={Sunset1.src} alt="banner" />
+                                </div>
+                                <div>
+                                    <h1 className="text-xl font-serif font-semibold mb-3">DivinPulse, a journey through time and faith</h1>
+                                    <p>At Divin Pulse, we believe that every artifact is a doorway to understanding the deeper aspects of faith and spirituality. As you explore our collections, you’re not just purchasing a piece of history—you’re connecting with the countless souls who have cherished these symbols of devotion. Each artifact we offer has been carefully preserved and curated to retain its spiritual integrity and significance, allowing you to experience a tangible link to the past.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h1 className="text-xl font-serif font-semibold mb-3">DivinPulse, a journey through time and faith</h1>
-                                <p>At Divin Pulse, we believe that every artifact is a doorway to understanding the deeper aspects of faith and spirituality. As you explore our collections, you’re not just purchasing a piece of history—you’re connecting with the countless souls who have cherished these symbols of devotion. Each artifact we offer has been carefully preserved and curated to retain its spiritual integrity and significance, allowing you to experience a tangible link to the past.</p>
+                            <div className="flex p-4 my-4 gap-x-4">
+                                <div>
+                                    <h1 className="text-xl font-serif font-semibold mb-3">Our Commitment to Quality and Integrity</h1>
+                                    <p>We understand that when it comes to religious artifacts, authenticity and quality are paramount. That is why at Divin Pulse, we are dedicated to providing only the most genuine and meticulously crafted items. Our commitment extends beyond just offering products—we strive to ensure that each piece you acquire holds true to its historical and spiritual origins.</p>
+                                </div>
+                                <div className="">
+                                    <img className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg" src={Sunset2.src} alt="banner" />
+                                </div>
                             </div>
                         </div>
-                        <div className="flex p-4 my-4 gap-x-4">
-                            <div>
-                                <h1 className="text-xl font-serif font-semibold mb-3">Our Commitment to Quality and Integrity</h1>
-                                <p>We understand that when it comes to religious artifacts, authenticity and quality are paramount. That’s why at Divin Pulse, we are dedicated to providing only the most genuine and meticulously crafted items. Our commitment extends beyond just offering products—we strive to ensure that each piece you acquire holds true to its historical and spiritual origins.</p>
-                            </div>
-                            <div className="">
-                                <img className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg" src={Sunset2.src} alt="banner" />
-                            </div>
-                        </div>
-                    </div>
+                        <ScrollBar orientation="horizontal" />
+                    </ScrollArea>
                     <h1 className="text-3xl font-serif font-semibold text-violet-900 mt-10 ml-4">Browse our catalogs</h1>
                     <div className="flex flex-col items-center justify-center">
                         <div className="max-w-7xl grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">

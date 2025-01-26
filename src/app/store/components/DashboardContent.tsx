@@ -34,8 +34,8 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
                     <div></div>
                 }
                 <div className="flex items-center justify-between mb-10 w-full h-48 bg-slate-50">
-                    <div className="flex mt-10">
-                        <div className="w-32 h-32 border flex items-center justify-center mx-8 rounded-lg bg-yellow-50">
+                    <div className="flex mt-16">
+                        <div className="w-32 h-32 border flex items-center justify-center mx-8 my-2 rounded-lg bg-yellow-50">
                             <img className="rounded-lg" src={images.iconImageUrl} />
                         </div>
                         <div>
@@ -51,11 +51,11 @@ const DashboardContent: React.FC<DashboardContentProps> = ({
                             </div>
                         </div>
                     </div>
-                    <div className="flex gap-x-4 mx-4">
+                    {/*<div className="flex gap-x-4 mx-4">
                         <div>Feature 1</div>
                         <div>Feature 2</div>
                         <div>Seller</div>
-                    </div>
+                    </div>*/}
                 </div>
             </div>
         </div>

@@ -3,8 +3,8 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import useImageModal from "@/hooks/useImageModal";
 import { Image as ImageType } from "@/types/types";
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react'
-import { ArrowBigLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { Tab, TabGroup, TabList } from '@headlessui/react'
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 interface CartPageClientProps {
@@ -17,8 +17,8 @@ const Gallery: React.FC<CartPageClientProps> = ({ imageInfo }) => {
 
     return (
         <div className="flex gap-x-4 h-fit max-w-[750px] aspect-6/5">
-            <ScrollArea className="relative border shadow-md rounded-md h-full max-w-28 overflow-y-hidden">
-                <TabGroup>
+            <ScrollArea className="hidden md:flex relative border shadow-md rounded-md h-full max-w-28 overflow-y-hidden">
+                <TabGroup className="hidden md:flex">
                     <TabList className="flex relative flex-col flex-grow gap-y-2 py-2">
                         {imageInfo && imageInfo.imageUrls.map((imageUrl, index) => (
                             <Tab
@@ -53,9 +53,9 @@ const Gallery: React.FC<CartPageClientProps> = ({ imageInfo }) => {
                 </TabGroup>
             </ScrollArea>
             <div className="flex aspect-square h-full relative bg-slate-100 rounded-md">
-                <ChevronLeft onClick={() => setActiveImgIndex(activeImgIndex === 0 ? imageInfo.imageUrls.length - 1 : activeImgIndex - 1)} className="absolute top-1/2 -translate-y-3 translate-x-1 cursor-pointer bg-white rounded-full hover:scale-105 border shadow-lg" />
+                <ChevronLeft onClick={() => setActiveImgIndex(activeImgIndex === 0 ? imageInfo.imageUrls.length - 1 : activeImgIndex - 1)} className="absolute top-1/2 -translate-y-3 translate-x-3 cursor-pointer bg-white rounded-full hover:scale-105 hover:opacity-80 border shadow-lg transition" />
                 <img src={imageInfo.imageUrls[activeImgIndex]} alt="image" className="aspect-square object-contain rounded-md" />
-                <ChevronRight onClick={() => setActiveImgIndex(activeImgIndex === imageInfo.imageUrls.length - 1 ? 0 : activeImgIndex + 1)} className="absolute top-1/2 right-0 -translate-y-3 -translate-x-1 cursor-pointer bg-white rounded-full hover:scale-105 border shadow-lg" />
+                <ChevronRight onClick={() => setActiveImgIndex(activeImgIndex === imageInfo.imageUrls.length - 1 ? 0 : activeImgIndex + 1)} className="absolute top-1/2 right-0 -translate-y-3 -translate-x-3 cursor-pointer bg-white rounded-full hover:scale-105 hover:opacity-80 border shadow-lg transition" />
             </div>
         </div>
     );
