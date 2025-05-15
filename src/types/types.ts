@@ -30,7 +30,7 @@ export interface Product {
     stores: {
         id: number;
         name: string;
-        shiprocketPickup: string;
+        shipyaariPickup: string;
         postalCode: number;
     };
     categories: {
@@ -56,7 +56,7 @@ export interface Store {
     storeImageUrls: string[];
     storeAbout: string;
     razorpayId: string;
-    shiprocketPickup: string;
+    shipyaariPickup: string;
 }
 
 export interface Category {

@@ -17,10 +17,10 @@ export const createDbOrderSR = async (consumer_id: string, vendor_ids: number[],
     return orderData;
 }
 
-export const addShiprocketData = async (order_id: string, shiprocket_data: any[]) => {
+export const addShipyaariData = async (order_id: string, shipyaari_data: any[]) => {
     const supabase = createClientComponentClient();
     const { data: orderData, error: orderError } = await supabase.from("orders").update({
-        shiprocket_data: shiprocket_data
+        shipyaari_data: shipyaari_data
     }).eq("order_id", order_id).select("*");
 
     if (orderError) {
@@ -31,38 +31,10 @@ export const addShiprocketData = async (order_id: string, shiprocket_data: any[]
     return orderData;
 }
 
-export const addShipRocketOrder = async (order_id: string, shiprocket_order: any[]) => {
+export const addShipRocketOrder = async (order_id: string, shipyaari_order: any[]) => {
     const supabase = createClientComponentClient();
     const { data: orderData, error: orderError } = await supabase.from("orders").update({
-        shiprocket_order: shiprocket_order
-    }).eq("order_id", order_id).select("*");
-    
-    if (orderError) {
-        console.log(orderError);
-        return;
-    }
-
-    return orderData;
-}
-
-export const addShiprocketAwb = async (order_id: string, shiprocket_awb: any[]) => {
-    const supabase = createClientComponentClient();
-    const { data: orderData, error: orderError } = await supabase.from("orders").update({
-        shiprocket_awb: shiprocket_awb
-    }).eq("order_id", order_id).select("*");
-
-    if (orderError) {
-        console.log(orderError);
-        return;
-    }
-
-    return orderData;
-}
-
-export const addShiprocketPickup = async (order_id: string, shiprocket_pickup: any[]) => {
-    const supabase = createClientComponentClient();
-    const { data: orderData, error: orderError } = await supabase.from("orders").update({
-        shiprocket_pickup: shiprocket_pickup
+        shipyaari_order: shipyaari_order
     }).eq("order_id", order_id).select("*");
     
     if (orderError) {
@@ -73,10 +45,38 @@ export const addShiprocketPickup = async (order_id: string, shiprocket_pickup: a
     return orderData;
 }
 
-export const addShipRocketInvoice = async (order_id: string, shiprocket_invoice: any[]) => {
+export const addShipyaariAwb = async (order_id: string, shipyaari_awb: any[]) => {
     const supabase = createClientComponentClient();
     const { data: orderData, error: orderError } = await supabase.from("orders").update({
-        shiprocket_invoice: shiprocket_invoice
+        shipyaari_awb: shipyaari_awb
+    }).eq("order_id", order_id).select("*");
+
+    if (orderError) {
+        console.log(orderError);
+        return;
+    }
+
+    return orderData;
+}
+
+export const addShipyaariPickup = async (order_id: string, shipyaari_pickup: any[]) => {
+    const supabase = createClientComponentClient();
+    const { data: orderData, error: orderError } = await supabase.from("orders").update({
+        shipyaari_pickup: shipyaari_pickup
+    }).eq("order_id", order_id).select("*");
+    
+    if (orderError) {
+        console.log(orderError);
+        return;
+    }
+
+    return orderData;
+}
+
+export const addShipRocketInvoice = async (order_id: string, shipyaari_invoice: any[]) => {
+    const supabase = createClientComponentClient();
+    const { data: orderData, error: orderError } = await supabase.from("orders").update({
+        shipyaari_invoice: shipyaari_invoice
     }).eq("order_id", order_id).select("*");
 
     if (orderError) {

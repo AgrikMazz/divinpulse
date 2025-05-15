@@ -15,6 +15,7 @@ import { blogs, card_contents_1, card_contents_2, pilgrimages } from "@/lib/list
 import loadStoreIcon from "@/app/actions/loadStoreIcon";
 import { useRouter } from "next/navigation";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import Image from "next/image";
 
 interface Props {
     products: Product[] | null,
@@ -40,7 +41,13 @@ const ContentArea: React.FC<Props> = ({
                         <div className="flex flex-col justify-center max-w-7xl mt-8 mx-4">
                             <div className="flex p-4 my-4 gap-x-4">
                                 <div className="">
-                                    <img className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg" src={Sunset1.src} alt="banner" />
+                                    <Image
+                                        className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg"
+                                        src={Sunset1.src}
+                                        alt="banner"
+                                        width={Sunset1.width}
+                                        height={Sunset1.height}
+                                    />
                                 </div>
                                 <div>
                                     <h1 className="text-xl font-serif font-semibold mb-3">DivinPulse, a journey through time and faith</h1>
@@ -53,7 +60,13 @@ const ContentArea: React.FC<Props> = ({
                                     <p>We understand that when it comes to religious artifacts, authenticity and quality are paramount. That is why at Divin Pulse, we are dedicated to providing only the most genuine and meticulously crafted items. Our commitment extends beyond just offering products—we strive to ensure that each piece you acquire holds true to its historical and spiritual origins.</p>
                                 </div>
                                 <div className="">
-                                    <img className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg" src={Sunset2.src} alt="banner" />
+                                    <Image
+                                        className="object-cover h-full w-full overflow-hidden aspect-square rounded-lg"
+                                        src={Sunset2.src}
+                                        alt="banner"
+                                        width={Sunset2.width}
+                                        height={Sunset2.height}
+                                    />
                                 </div>
                             </div>
                         </div>

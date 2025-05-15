@@ -3,7 +3,6 @@
 import { DropdownMenu, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Product, Store } from "@/types/types";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { FaHeart } from "react-icons/fa";
 import ProductCollapsible from "./ProductCollapsibles";
 import useImageModal from "@/hooks/useImageModal";
 import Link from "next/link";
@@ -16,7 +15,7 @@ import { rateLimiter } from "@/lib/rateLimiter";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import FadeLoader from "react-spinners/FadeLoader";
-import { checkServicibility, getToken } from "@/app/actions/getToken";
+import { getServicibility } from "@/app/actions/processShipyaari";
 
 interface ProductDetailsProps {
     product: Product,
@@ -68,8 +67,20 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, store }) => {
         }
     }
 
-    const onClickServicibility = async (product: Product) => {
-            const resJson = await checkServicibility(Number(pin), store.postalCode, product.weight);
+    const onClickServicibility = async () => {
+            const resJson = await getServicibility({
+                "pickupPincode": store.postalCode,
+                "deliveryPincode": pin,
+                "invoiceValue": product.id.toString()+product.store_id.toString(),
+                "paymentMode": "PREPAID",
+                "weight": product.weight,
+                "orderType": "B2C",
+                "dimension": {
+                    "length": product.length,
+                    "width": product.breadth,
+                    "height": product.height
+                }
+            });
             if (resJson.status == 404) console.log(resJson.message);
             if (resJson.status == 200 && resJson.data.available_courier_companies.length > 0) {
                 console.log(resJson.data.available_courier_companies.length);
@@ -102,7 +113,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ product, store }) => {
                     <div>Enter Delivery Pin code: </div>
                     <input className="border rounded-md p-2 my-2" onChange={((e) => setPin(e.target.value))} />
                 </div>
-                <button onClick={() => onClickServicibility(product)} className="border border-black flex items-center gap-x-2 justify-center text-sm font-semibold w-full rounded-full py-3 hover:bg-slate-100 hover:scale-105 transition">
+                <button onClick={() => onClickServicibility()} className="border border-black flex items-center gap-x-2 justify-center text-sm font-semibold w-full rounded-full py-3 hover:bg-slate-100 hover:scale-105 transition">
                     {isLoading ? <FadeLoader className="w-4 h-4" /> : <ShoppingCart className={cn("w-5 h-5", {"fill-black": isInCart})} />}
                     Check Servicibility
                 </button>

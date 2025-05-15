@@ -13,22 +13,19 @@ import React, { useState } from "react";
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
 interface StoreSwitcherProps extends PopoverTriggerProps {
-    stores: Store[];
+    allStores: Store[] | null,
+    allUserStores: Store[] | null
 }
 
 function StoreSwitcher({
-    stores = [],
+    allStores,
+    allUserStores
 }: StoreSwitcherProps) {    
     const params = useParams();
     const router = useRouter();
     const StoreModal = useStoreModal();
-
-    const formattedStores = stores.map((store) => ({
-        name: store.name,
-        id: store.id
-    }));
-
-    const currentStore = formattedStores.find((store) => store.id === Number(params.storeId))
+    let currentStore: Store | undefined;
+    allStores ? currentStore = allStores.find((store) => store.id === Number(params.storeId)) : null;
     const [open, setOpen] = useState(false);
 
     const onStoreSelect = (store: {id: number, name: string}) => {
@@ -40,19 +37,18 @@ function StoreSwitcher({
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button variant={"outline"} role="combobox" aria-expanded={open} aria-label="Select a store" className="w-[200px] justify-between">
-                    <StoreIcon className="mr-2 h-4 w-4" />
-                    {currentStore ? currentStore.name : "Select a store"}
-                    <ChevronDownIcon className="ml-2 h-4 w-4 opacity-50" />
+                <Button variant={"default"} role="combobox" aria-expanded={open} aria-label="Select a store" className="w-full justify-between p-2 bg-[#F7FCFF] hover:bg-slate-100">
+                    <StoreIcon className="mr-2 text-black h-4 w-4" />
+                    <ChevronDownIcon className="text-black h-4 w-4 opacity-50" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent>
                 <Command>
-                    <CommandList>
+                    {allStores && allStores.length>0 && <div><CommandList>
                         <CommandInput placeholder="Search store..." />
                         <CommandEmpty>No store found.</CommandEmpty>
                         <CommandGroup heading="Stores">
-                            {formattedStores.map((store) => (
+                            {allStores.map((store) => (
                                 <CommandItem
                                     key={store.id}
                                     onSelect={() => onStoreSelect(store)}
@@ -64,7 +60,24 @@ function StoreSwitcher({
                             ))}
                         </CommandGroup>
                     </CommandList>
-                    <CommandSeparator />
+                    <CommandSeparator /></div>}
+                    {allUserStores && allUserStores.length>0 && <div><CommandList>
+                        <CommandInput placeholder="Search store..." />
+                        <CommandEmpty>No store found.</CommandEmpty>
+                        <CommandGroup heading="Stores">
+                            {allUserStores.map((store) => (
+                                <CommandItem
+                                    key={store.id}
+                                    onSelect={() => onStoreSelect(store)}
+                                >
+                                    <StoreIcon className="mr-2 h-4 w-4" />
+                                    {store.name}
+                                    <Check className={cn("ml-auto h-4 w-4", currentStore?.id === store.id ? "opacity-100" : "opacity-0")} />
+                                </CommandItem>
+                            ))}
+                        </CommandGroup>
+                    </CommandList>
+                    <CommandSeparator /></div>}
                     <CommandList>
                         <CommandGroup>
                             <CommandItem

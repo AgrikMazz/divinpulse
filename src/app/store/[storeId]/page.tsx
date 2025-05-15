@@ -5,6 +5,8 @@ import loadStoreImage from "@/app/actions/loadStoreImages";
 import getProductsByStore from "@/app/actions/getProductsByStore";
 import Footer from "@/app/components/Footer";
 import AboutContent from "../components/AboutContent";
+import Header from "@/app/components/Header";
+import Navbar from "../components/Navbar";
 
 interface Props {
     params: {
@@ -20,9 +22,7 @@ const Store: React.FC<Props> = async ({ params }) => {
 
     return (
         <div>
-            <DashboardContent store={store} images={images} products={products} />
             <AboutContent store={store} />
-            <Footer />
         </div>
     );
 }

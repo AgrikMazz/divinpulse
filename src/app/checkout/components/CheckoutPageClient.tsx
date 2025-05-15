@@ -2,8 +2,8 @@
 
 import getStoreById from "@/app/actions/getStoreById";
 import { checkServicibility } from "@/app/actions/getToken";
-import { addShiprocketAwb, addShiprocketData, addShipRocketInvoice, addShipRocketOrder, addShiprocketPickup } from "@/app/actions/orders";
-import { createOrderSR, generateAwbSR, generateInvoicesSR, generatePickupSR } from "@/app/actions/processShiprocket";
+import { addShipyaariAwb, addShipyaariData, addShipRocketInvoice, addShipRocketOrder, addShipyaariPickup } from "@/app/actions/orders";
+import { createOrderSR, generateAwbSR, generateInvoicesSR, generatePickupSR } from "@/app/actions/processShipyaari";
 import ItemQuantityBox from "@/app/components/ItemQuantity";
 import ModelCard from "@/app/components/ModelCard";
 import ModelCard2 from "@/app/components/ModelCard2";
@@ -266,10 +266,10 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
         const dateString = yyyy + '/' + mm + '/' + dd + ' ' + hours + ':' + minutes;
 
         const ShipRocketOrderIds: string[] = [];
-        const ShiprocketData: any[] = [];
-        const ShiprocketOrder: any[] = [];
-        const ShiprocketAwb: any[] = [];
-        const ShiprocketPickup: any[] = [];
+        const ShipyaariData: any[] = [];
+        const ShipyaariOrder: any[] = [];
+        const ShipyaariAwb: any[] = [];
+        const ShipyaariPickup: any[] = [];
 
         for (const store of storeArray) {
             const orderItems: OrderItem[] = getOrderItems(store.id);
@@ -279,7 +279,7 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
             const SROrderOptions = {
                 "order_id": storeOrderId,
                 "order_date": dateString,
-                "pickup_location": store.shiprocketPickup,
+                "pickup_location": store.shipyaariPickup,
                 "channel_id": "",
                 "comment": "",
                 "billing_customer_name": bFirstName,
@@ -315,18 +315,18 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                 "height": 3 * orderItems.length,
                 "weight": 0.2 * orderItems.length
             }
-            ShiprocketData.push(SROrderOptions);
+            ShipyaariData.push(SROrderOptions);
             const SRorderResJson = await createOrderSR(SROrderOptions);
-            ShiprocketOrder.push(SRorderResJson);
+            ShipyaariOrder.push(SRorderResJson);
             const Shipment_Id = SRorderResJson.shipment_id;
             //const SRawbResJson = await generateAwbSR(Shipment_Id);
-            //ShiprocketAwb.push(SRawbResJson);
+            //ShipyaariAwb.push(SRawbResJson);
             //const SRpickupResJson = await generatePickupSR(Shipment_Id);
-            //ShiprocketPickup.push(SRpickupResJson);
+            //ShipyaariPickup.push(SRpickupResJson);
             //await new Promise(r => setTimeout(r, 3000));
         }
-        console.log(ShipRocketOrderIds, ShiprocketData, ShiprocketOrder);
-        return { ShipRocketOrderIds, ShiprocketData, ShiprocketOrder, ShiprocketAwb, ShiprocketPickup };
+        console.log(ShipRocketOrderIds, ShipyaariData, ShipyaariOrder);
+        return { ShipRocketOrderIds, ShipyaariData, ShipyaariOrder, ShipyaariAwb, ShipyaariPickup };
     }
 
     const processPayment = async () => {
@@ -353,11 +353,11 @@ const CheckoutPageClient: React.FC<CheckoutPageClientProps> = ({
                 
                 const res = await result.json();
                 if (res.isOk) {
-                    const {ShipRocketOrderIds, ShiprocketData, ShiprocketOrder, ShiprocketAwb, ShiprocketPickup} = await processSR(orderId);
-                    const SRdataDB = await addShiprocketData(orderId, ShiprocketData);
-                    const SRorderDB = await addShipRocketOrder(orderId, ShiprocketOrder);
-                    const SRawbDB = await addShiprocketAwb(orderId, ShiprocketAwb);
-                    const SRpickupDB = await addShiprocketPickup(orderId, ShiprocketPickup);
+                    const {ShipRocketOrderIds, ShipyaariData, ShipyaariOrder, ShipyaariAwb, ShipyaariPickup} = await processSR(orderId);
+                    const SRdataDB = await addShipyaariData(orderId, ShipyaariData);
+                    const SRorderDB = await addShipRocketOrder(orderId, ShipyaariOrder);
+                    const SRawbDB = await addShipyaariAwb(orderId, ShipyaariAwb);
+                    const SRpickupDB = await addShipyaariPickup(orderId, ShipyaariPickup);
                     const SRinvoicesJson = await generateInvoicesSR(ShipRocketOrderIds).then(async (res) => {
                         const SRinvoicesDB = await addShipRocketInvoice(orderId, res);
                     });

@@ -12,7 +12,7 @@ export const getToken = async () => {
     //    valid = parsedJWT.exp > Date.now() / 1000;
     //}
     //if(!valid) {
-        const res = await fetch('https://apiv2.shiprocket.in/v1/external/auth/login', {
+        const res = await fetch('https://api-seller.shipyaari.com/api/v1/seller/signIn', {
             method: 'POST',
             headers: {
                 //'Access-Control-Allow-Origin': '*',
@@ -20,8 +20,8 @@ export const getToken = async () => {
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                "email": "dushtuman1524@gmail.com",
-                "password": "Aneel@15"
+                "email": "divinpulse@gmail.com",
+                "password": "DivinPulse@1234"
             }),
         });
         console.log(res);
@@ -41,7 +41,7 @@ export const getToken = async () => {
 // Middleware for refreshing the token if expired
 export const checkServicibility = async (pickup_postcode: number, delivery_postcode: number, weight: number) => {
     const token = await getToken();
-    const url = new URL("https://apiv2.shiprocket.in/v1/external/courier/serviceability/");
+    const url = new URL("https://api-seller.shipyaari.com/api/v1/order/checkServiceabilityV2");
     url.searchParams.append("pickup_postcode", pickup_postcode.toString());
     url.searchParams.append("delivery_postcode", delivery_postcode.toString());
     url.searchParams.append("weight", weight.toString());

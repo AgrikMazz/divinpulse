@@ -4,11 +4,21 @@ import { UserButton, useAuth } from "@clerk/nextjs";
 import { Button } from "../../components/ui/button";
 import { useRouter } from "next/navigation";
 import useStoreModal from "@/hooks/useStoreModal";
-import { Heart, ShoppingCart, Store } from "lucide-react";
+import { Heart, ShoppingCart } from "lucide-react";
 import useCart from "@/hooks/useCart";
 import useFavourite from "@/hooks/useFavourite";
+import StoreSwitcher from "./StoreSwitcher";
+import { Store } from "@/types/types";
 
-const ButtonArea = (values: {storeId: string, isSeller: boolean}) => {
+interface ButtonAreaProps {
+    allStores: Store[] | null,
+    allUserStores: Store[] | null
+}
+
+const ButtonArea: React.FC<ButtonAreaProps> = ({
+    allStores,
+    allUserStores
+}) => {
     const { isLoaded, userId } = useAuth();
     const StoreModal = useStoreModal();
     const router = useRouter();
@@ -28,11 +38,7 @@ const ButtonArea = (values: {storeId: string, isSeller: boolean}) => {
                         <Heart className="w-5 h-5" />
                         <span className="ml-1">{fav.items.length}</span>
                     </Button>
-                    {values.isSeller == true ? (
-                        <Button size={"sm"} variant={"ghost"} className="hover:underline" onClick={() => router.push(`/store/${values.storeId}`)}><Store /></Button>
-                    ) : (
-                        <Button size={"sm"} variant={"ghost"} className="hover:underline hover:bg-transparent mr-2" onClick={() => router.push("/store/create")}>Become a seller</Button>
-                    )}
+                    <StoreSwitcher allStores={allStores} allUserStores={allUserStores} />
                 </div>
             ) : (
                 <div className="flex flex-col items-end mr-2">

@@ -23,9 +23,7 @@ const StoreDashboard: React.FC<ProductPageProps> = async ({ params }) => {
 
     return (
         <div>
-            <DashboardContent store={store} images={images} products={products} />
             <DashboardPageContent />
-            <Footer />
         </div>
     );
 }

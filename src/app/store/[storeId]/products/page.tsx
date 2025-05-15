@@ -23,7 +23,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
     if (!store) { redirect("/"); }
     const images = loadStoreImages(store);
     const products: Product[] | null = await getProductsByStore(Number(params.storeId));
-    
+
     products?.map( async (product) => {
         categoryIds.push(...product.categories.path.split('/').map((category) => +category));
     })
@@ -41,9 +41,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({params}) => {
 
     return (
         <div>
-            <DashboardContent store={store} images={images} products={products} />
             <PageContent products={products} categories={categories} reviews={reviewData} />
-            <Footer />
         </div>
     )
 }

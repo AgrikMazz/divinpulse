@@ -51,7 +51,7 @@ const SearchInput = () => {
     }
 
     return (
-        <div className="flex flex-row z-20 items-center w-fit p-2 rounded-full text-sm bg-[#565694] gap-x-3">
+        <div className="flex flex-row z-20 items-center md:w-fit w-full p-2 mx-2 rounded-full text-sm bg-[#565694] gap-x-3">
             <div className="">
                 <select value={searchOption} className="rounded-full p-2 cursor-pointer" onChange={handleChange}>
                     {/*<option value="" className="hidden">Search</option>*/}
